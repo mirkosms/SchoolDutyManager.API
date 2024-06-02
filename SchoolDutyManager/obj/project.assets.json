@@ -433,11 +433,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\c#\\SchoolDutyManager\\SchoolDutyManager.csproj",
+      "projectUniqueName": "D:\\SchoolDutyManagerAPI\\SchoolDutyManager\\SchoolDutyManager.csproj",
       "projectName": "SchoolDutyManager",
-      "projectPath": "D:\\c#\\SchoolDutyManager\\SchoolDutyManager.csproj",
+      "projectPath": "D:\\SchoolDutyManagerAPI\\SchoolDutyManager\\SchoolDutyManager.csproj",
       "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-      "outputPath": "D:\\c#\\SchoolDutyManager\\obj\\",
+      "outputPath": "D:\\SchoolDutyManagerAPI\\SchoolDutyManager\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
