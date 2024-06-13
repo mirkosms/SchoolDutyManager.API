@@ -1,17 +1,25 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SchoolDutyManager.Models;
 using SchoolDutyManager.Services;
+using System.Linq;
 
 namespace SchoolDutyManager.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class DutiesController : ControllerBase
     {
         [HttpGet]
-        public ActionResult<List<Duty>> GetAll()
+        public IActionResult GetAll()
         {
-            return DutyService.GetAll();
+            var duties = DutyService.GetAll();
+            if (duties == null || !duties.Any())
+            {
+                return NotFound();
+            }
+            return Ok(duties);
         }
 
         [HttpGet("{id}")]

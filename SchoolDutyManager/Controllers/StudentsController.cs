@@ -1,11 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SchoolDutyManager.Models;
 using SchoolDutyManager.Services;
+using System.Linq;
 
 namespace SchoolDutyManager.Controllers
 {
+    [Authorize]
     [ApiController]
-    [Route("students")]
+    [Route("[controller]")]
     public class StudentsController : ControllerBase
     {
         [HttpGet]
@@ -18,7 +21,6 @@ namespace SchoolDutyManager.Controllers
             }
             return Ok(students);
         }
-
 
         [HttpGet("{id}")]
         public ActionResult<Student> Get(int id)
@@ -43,19 +45,18 @@ namespace SchoolDutyManager.Controllers
         {
             if (id != student.Id)
             {
-                return BadRequest(new { message = "Id mismatch" });
+                return BadRequest();
             }
 
             var existingStudent = StudentService.Get(id);
             if (existingStudent == null)
             {
-                return NotFound(new { message = "Student not found" });
+                return NotFound();
             }
 
             StudentService.Update(student);
             return NoContent();
         }
-
 
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)

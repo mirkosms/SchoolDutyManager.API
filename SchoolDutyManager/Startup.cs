@@ -23,11 +23,7 @@ namespace SchoolDutyManager
         {
             services.AddControllers();
 
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "SchoolDutyManager API", Version = "v1" });
-            });
-
+            // Add JWT Authentication
             var key = Encoding.ASCII.GetBytes(Configuration["Jwt:Key"]);
             services.AddAuthentication(x =>
             {
@@ -49,11 +45,33 @@ namespace SchoolDutyManager
                 };
             });
 
-            services.AddAuthorization(options =>
+            // Configure Swagger with JWT authentication
+            services.AddSwaggerGen(c =>
             {
-                options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"));
-                options.AddPolicy("TeacherOnly", policy => policy.RequireRole("Teacher"));
-                options.AddPolicy("StudentOnly", policy => policy.RequireRole("Student"));
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "SchoolDutyManager API", Version = "v1" });
+
+                // Add JWT token authentication
+                var securityScheme = new OpenApiSecurityScheme
+                {
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "bearer",
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    Description = "JWT Authorization header using the Bearer scheme.",
+
+                    Reference = new OpenApiReference
+                    {
+                        Type = ReferenceType.SecurityScheme,
+                        Id = "Bearer"
+                    }
+                };
+
+                c.AddSecurityDefinition("Bearer", securityScheme);
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    { securityScheme, new[] { "Bearer" } }
+                });
             });
         }
 

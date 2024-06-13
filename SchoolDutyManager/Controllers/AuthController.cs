@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SchoolDutyManager.Models;
 using SchoolDutyManager.Services;
-using Microsoft.Extensions.Configuration;
 
 namespace SchoolDutyManager.Controllers
 {
@@ -9,22 +9,39 @@ namespace SchoolDutyManager.Controllers
     [Route("[controller]")]
     public class AuthController : ControllerBase
     {
-        private readonly IConfiguration _configuration;
-
-        public AuthController(IConfiguration configuration)
+        [AllowAnonymous]
+        [HttpPost("login")]
+        public IActionResult Login([FromBody] UserLoginDto loginDto)
         {
-            _configuration = configuration;
+            var token = AuthService.Login(loginDto);
+            if (token == null)
+            {
+                return Unauthorized();
+            }
+            return Ok(token);
         }
 
-        [HttpPost("login")]
-        public IActionResult Login(UserRegistrationDto loginDto)
+        [AllowAnonymous]
+        [HttpPost("register")]
+        public IActionResult Register([FromBody] UserRegistrationDto registrationDto)
         {
-            var result = AuthService.Authenticate(loginDto.Email, loginDto.Password, _configuration["Jwt:Key"]);
+            var result = AuthService.RegisterUser(registrationDto);
             if (!result.Success)
             {
-                return Unauthorized(result.Message);
+                return BadRequest(result.Message);
             }
-            return Ok(result.Token);
+            return Ok(result.Message);
+        }
+
+        [HttpPost("assign-role")]
+        public IActionResult AssignRole([FromBody] RoleAssignmentDto roleAssignmentDto)
+        {
+            var result = AuthService.AssignRole(roleAssignmentDto);
+            if (!result.Success)
+            {
+                return BadRequest(result.Message);
+            }
+            return Ok(result.Message);
         }
     }
 }
