@@ -1,3 +1,35 @@
-{
-
-}
+[
+  {
+    "Id": 1,
+    "Name": "Bill",
+    "Surname": "Smith",
+    "Classes": [
+      "string"
+    ],
+    "Duties": [
+      "string"
+    ]
+  },
+  {
+    "Id": 2,
+    "Name": "Duke",
+    "Surname": "Smith",
+    "Classes": [
+      "string"
+    ],
+    "Duties": [
+      "string"
+    ]
+  },
+  {
+    "Id": 3,
+    "Name": "Duke",
+    "Surname": "Smith",
+    "Classes": [
+      "string"
+    ],
+    "Duties": [
+      "string"
+    ]
+  }
+]

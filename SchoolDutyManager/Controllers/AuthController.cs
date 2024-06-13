@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SchoolDutyManager.Models;
+using SchoolDutyManager.Services;
 using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
-using System;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
 
 namespace SchoolDutyManager.Controllers
 {
@@ -20,35 +17,14 @@ namespace SchoolDutyManager.Controllers
         }
 
         [HttpPost("login")]
-        public IActionResult Login([FromBody] LoginRequest loginRequest)
+        public IActionResult Login(UserRegistrationDto loginDto)
         {
-            if (loginRequest.Email == "user@example.com" && loginRequest.Password == "password123")
+            var result = AuthService.Authenticate(loginDto.Email, loginDto.Password, _configuration["Jwt:Key"]);
+            if (!result.Success)
             {
-                var token = GenerateJwtToken(loginRequest.Email);
-                return Ok(new { Token = token });
+                return Unauthorized(result.Message);
             }
-
-            return Unauthorized();
+            return Ok(result.Token);
         }
-
-        private string GenerateJwtToken(string email)
-        {
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Key"]);
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(new[] { new Claim(ClaimTypes.Email, email) }),
-                Expires = DateTime.UtcNow.AddHours(1),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            };
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            return tokenHandler.WriteToken(token);
-        }
-    }
-
-    public class LoginRequest
-    {
-        public string Email { get; set; }
-        public string Password { get; set; }
     }
 }

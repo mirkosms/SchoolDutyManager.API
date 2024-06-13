@@ -1,14 +1,13 @@
 [
   {
     "Id": 3,
-    "Name": "Marcin",
-    "Surname": "B\u0105k",
+    "Name": "XD",
+    "Surname": "string",
     "Classes": [
-      "Math",
-      "Science"
+      "string"
     ],
     "Duties": [
-      "Library"
+      "string"
     ]
   },
   {
