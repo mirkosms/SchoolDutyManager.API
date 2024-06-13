@@ -5,14 +5,20 @@ using SchoolDutyManager.Services;
 namespace SchoolDutyManager.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("students")]
     public class StudentsController : ControllerBase
     {
         [HttpGet]
-        public ActionResult<List<Student>> GetAll()
+        public IActionResult GetAll()
         {
-            return StudentService.GetAll();
+            var students = StudentService.GetAll();
+            if (students == null || !students.Any())
+            {
+                return NotFound();
+            }
+            return Ok(students);
         }
+
 
         [HttpGet("{id}")]
         public ActionResult<Student> Get(int id)
@@ -37,18 +43,19 @@ namespace SchoolDutyManager.Controllers
         {
             if (id != student.Id)
             {
-                return BadRequest();
+                return BadRequest(new { message = "Id mismatch" });
             }
 
             var existingStudent = StudentService.Get(id);
             if (existingStudent == null)
             {
-                return NotFound();
+                return NotFound(new { message = "Student not found" });
             }
 
             StudentService.Update(student);
             return NoContent();
         }
+
 
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)

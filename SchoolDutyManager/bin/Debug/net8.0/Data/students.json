@@ -1,3 +1,59 @@
-{
-
-}
+[
+  {
+    "Id": 3,
+    "Name": "Marcin",
+    "Surname": "B\u0105k",
+    "Classes": [
+      "Math",
+      "Science"
+    ],
+    "Duties": [
+      "Library"
+    ]
+  },
+  {
+    "Id": 4,
+    "Name": "Marcin",
+    "Surname": "B\u0105k",
+    "Classes": [
+      "Math",
+      "Science"
+    ],
+    "Duties": [
+      "Library"
+    ]
+  },
+  {
+    "Id": 5,
+    "Name": "string",
+    "Surname": "string",
+    "Classes": [
+      "string"
+    ],
+    "Duties": [
+      "string"
+    ]
+  },
+  {
+    "Id": 6,
+    "Name": "string",
+    "Surname": "string",
+    "Classes": [
+      "string"
+    ],
+    "Duties": [
+      "string"
+    ]
+  },
+  {
+    "Id": 7,
+    "Name": "string",
+    "Surname": "string",
+    "Classes": [
+      "string"
+    ],
+    "Duties": [
+      "string"
+    ]
+  }
+]

@@ -21,7 +21,12 @@ namespace SchoolDutyManager
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers().AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.PropertyNamingPolicy = null;
+                options.JsonSerializerOptions.DictionaryKeyPolicy = null;
+            });
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "SchoolDutyManager API", Version = "v1" });
@@ -41,9 +46,23 @@ namespace SchoolDutyManager
                 {
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidateIssuer = false,
-                    ValidateAudience = false
+                    ValidateIssuer = true,
+                    ValidIssuer = Configuration["Jwt:Issuer"],
+                    ValidateAudience = true,
+                    ValidAudience = Configuration["Jwt:Audience"]
                 };
+            });
+
+            // Dodaj usługi CORS
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAllOrigins",
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin()
+                               .AllowAnyMethod()
+                               .AllowAnyHeader();
+                    });
             });
         }
 
@@ -59,6 +78,9 @@ namespace SchoolDutyManager
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors("AllowAllOrigins");
+
             app.UseAuthentication();
             app.UseAuthorization();
 
