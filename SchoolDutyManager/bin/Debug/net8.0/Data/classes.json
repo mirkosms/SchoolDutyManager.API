@@ -16,5 +16,21 @@
       "John Doe",
       "Jane Doe"
     ]
+  },
+  {
+    "Id": 3,
+    "Name": "M",
+    "Duration": 3,
+    "AssignedPeople": [
+      "string"
+    ]
+  },
+  {
+    "Id": 4,
+    "Name": "Sport",
+    "Duration": 2,
+    "AssignedPeople": [
+      "Jane Doe"
+    ]
   }
 ]

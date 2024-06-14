@@ -22,9 +22,31 @@
     ]
   },
   {
-    "Id": 3,
-    "Name": "Duke",
-    "Surname": "Smith",
+    "Id": 4,
+    "Name": "string",
+    "Surname": "string",
+    "Classes": [
+      "string"
+    ],
+    "Duties": [
+      "string"
+    ]
+  },
+  {
+    "Id": 5,
+    "Name": "string",
+    "Surname": "string",
+    "Classes": [
+      "string"
+    ],
+    "Duties": [
+      "string"
+    ]
+  },
+  {
+    "Id": 6,
+    "Name": "string",
+    "Surname": "string",
     "Classes": [
       "string"
     ],

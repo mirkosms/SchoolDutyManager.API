@@ -7,24 +7,18 @@ using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using SchoolDutyManager.Services;
+
 
 namespace SchoolDutyManager
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
-
-        public IConfiguration Configuration { get; }
-
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
 
-            // Add JWT Authentication
-            var key = Encoding.ASCII.GetBytes(Configuration["Jwt:Key"]);
+            var key = Encoding.ASCII.GetBytes("this_is_a_longer_secret_key_32bytes!");
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -38,41 +32,36 @@ namespace SchoolDutyManager
                 {
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidateIssuer = true,
-                    ValidIssuer = Configuration["Jwt:Issuer"],
-                    ValidateAudience = true,
-                    ValidAudience = Configuration["Jwt:Audience"]
+                    ValidateIssuer = false,
+                    ValidateAudience = false
                 };
             });
 
-            // Configure Swagger with JWT authentication
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "SchoolDutyManager API", Version = "v1" });
-
-                // Add JWT token authentication
-                var securityScheme = new OpenApiSecurityScheme
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
-                    Name = "Authorization",
-                    Type = SecuritySchemeType.Http,
-                    Scheme = "bearer",
-                    BearerFormat = "JWT",
                     In = ParameterLocation.Header,
-                    Description = "JWT Authorization header using the Bearer scheme.",
-
-                    Reference = new OpenApiReference
-                    {
-                        Type = ReferenceType.SecurityScheme,
-                        Id = "Bearer"
-                    }
-                };
-
-                c.AddSecurityDefinition("Bearer", securityScheme);
-                c.AddSecurityRequirement(new OpenApiSecurityRequirement
-                {
-                    { securityScheme, new[] { "Bearer" } }
+                    Description = "Please enter into field the word 'Bearer' followed by a space and the JWT value",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey
                 });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement {
+                {
+                    new OpenApiSecurityScheme
+                    {
+                        Reference = new OpenApiReference
+                        {
+                            Type = ReferenceType.SecurityScheme,
+                            Id = "Bearer"
+                        }
+                    },
+                    Array.Empty<string>()
+                }});
             });
+
+            services.AddSingleton<IUserService, UserService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -80,8 +69,6 @@ namespace SchoolDutyManager
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SchoolDutyManager API v1"));
             }
 
             app.UseHttpsRedirection();
@@ -90,6 +77,12 @@ namespace SchoolDutyManager
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "SchoolDutyManager API V1");
+            });
 
             app.UseEndpoints(endpoints =>
             {

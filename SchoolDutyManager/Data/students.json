@@ -12,19 +12,18 @@
   },
   {
     "Id": 4,
-    "Name": "Marcin",
-    "Surname": "B\u0105k",
+    "Name": "endju",
+    "Surname": "string",
     "Classes": [
-      "Math",
-      "Science"
+      "string"
     ],
     "Duties": [
-      "Library"
+      "string"
     ]
   },
   {
     "Id": 5,
-    "Name": "string",
+    "Name": "endju",
     "Surname": "string",
     "Classes": [
       "string"
@@ -35,18 +34,7 @@
   },
   {
     "Id": 6,
-    "Name": "string",
-    "Surname": "string",
-    "Classes": [
-      "string"
-    ],
-    "Duties": [
-      "string"
-    ]
-  },
-  {
-    "Id": 7,
-    "Name": "string",
+    "Name": "endju",
     "Surname": "string",
     "Classes": [
       "string"

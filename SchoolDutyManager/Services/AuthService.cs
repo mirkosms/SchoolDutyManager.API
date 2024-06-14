@@ -1,12 +1,17 @@
-﻿using SchoolDutyManager.Models;
+﻿using Microsoft.IdentityModel.Tokens;
+using SchoolDutyManager.Models;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
+using System.Text;
 
 namespace SchoolDutyManager.Services
 {
     public static class AuthService
     {
-        private static List<User> users = new List<User>();
+        private static readonly List<User> users = new List<User>();
+        private static readonly string secretKey = "this_is_a_longer_secret_key_32bytes!"; // This should be the same in both places
 
         public static string Login(UserLoginDto loginDto)
         {
@@ -53,10 +58,37 @@ namespace SchoolDutyManager.Services
             return new AuthResult { Success = true, Message = "Role assigned successfully" };
         }
 
+        public static User GetUserByEmail(string email)
+        {
+            return users.Find(u => u.Email == email);
+        }
+
+        public static List<User> GetAllUsers()
+        {
+            return users;
+        }
+
         private static string GenerateJwtToken(User user)
         {
-            // Implement JWT token generation logic
-            return "generated-jwt-token";
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(secretKey);
+            var role = user.Roles.FirstOrDefault();
+            if (string.IsNullOrEmpty(role))
+            {
+                throw new ArgumentNullException(nameof(role), "User role cannot be null or empty.");
+            }
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new Claim[]
+                {
+                    new Claim(ClaimTypes.Name, user.Email),
+                    new Claim(ClaimTypes.Role, role) // Dodajemy tylko pierwszą rolę użytkownika
+                }),
+                Expires = DateTime.UtcNow.AddHours(1),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            return tokenHandler.WriteToken(token);
         }
     }
 }
