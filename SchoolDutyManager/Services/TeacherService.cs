@@ -5,12 +5,12 @@ using System.Text.Json;
 
 namespace SchoolDutyManager.Services
 {
-    public static class TeacherService
+    public class TeacherService : ITeacherService
     {
-        private static List<Teacher> teachers;
-        private static readonly string filePath = "./Data/teachers.json";
+        private List<Teacher> teachers;
+        private readonly string filePath = "./Data/teachers.json";
 
-        static TeacherService()
+        public TeacherService()
         {
             if (File.Exists(filePath))
             {
@@ -23,38 +23,42 @@ namespace SchoolDutyManager.Services
             }
         }
 
-        public static List<Teacher> GetAll() => teachers;
+        public List<Teacher> GetAllTeachers() => teachers;
 
-        public static Teacher Get(int id) => teachers.Find(t => t.Id == id);
+        public Teacher GetTeacherById(int id) => teachers.Find(t => t.Id == id);
 
-        public static void Add(Teacher teacher)
+        public void AddTeacher(Teacher teacher)
         {
             teacher.Id = teachers.Count > 0 ? teachers[^1].Id + 1 : 1;
             teachers.Add(teacher);
             SaveToFile();
         }
 
-        public static void Update(Teacher teacher)
+        public bool UpdateTeacher(Teacher teacher)
         {
             var index = teachers.FindIndex(t => t.Id == teacher.Id);
             if (index != -1)
             {
                 teachers[index] = teacher;
                 SaveToFile();
+                return true;
             }
+            return false;
         }
 
-        public static void Delete(int id)
+        public bool DeleteTeacher(int id)
         {
-            var teacher = Get(id);
+            var teacher = GetTeacherById(id);
             if (teacher != null)
             {
                 teachers.Remove(teacher);
                 SaveToFile();
+                return true;
             }
+            return false;
         }
 
-        private static void SaveToFile()
+        private void SaveToFile()
         {
             var json = JsonSerializer.Serialize(teachers, new JsonSerializerOptions { WriteIndented = true });
             File.WriteAllText(filePath, json);

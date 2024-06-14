@@ -9,7 +9,6 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using SchoolDutyManager.Services;
 
-
 namespace SchoolDutyManager
 {
     public class Startup
@@ -62,6 +61,7 @@ namespace SchoolDutyManager
             });
 
             services.AddSingleton<IUserService, UserService>();
+            services.AddSingleton<ITeacherService, TeacherService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

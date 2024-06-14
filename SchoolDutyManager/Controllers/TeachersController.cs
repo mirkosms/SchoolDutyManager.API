@@ -2,72 +2,76 @@
 using Microsoft.AspNetCore.Mvc;
 using SchoolDutyManager.Models;
 using SchoolDutyManager.Services;
-using System.Linq;
 
 namespace SchoolDutyManager.Controllers
 {
-    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class TeachersController : ControllerBase
     {
-        [HttpGet]
-        public IActionResult GetAll()
+        private readonly ITeacherService _teacherService;
+
+        public TeachersController(ITeacherService teacherService)
         {
-            var teachers = TeacherService.GetAll();
-            if (teachers == null || !teachers.Any())
-            {
-                return NotFound();
-            }
+            _teacherService = teacherService;
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Student,Teacher,Admin")]
+        public IActionResult GetAllTeachers()
+        {
+            var teachers = _teacherService.GetAllTeachers();
             return Ok(teachers);
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Teacher> Get(int id)
+        [Authorize(Roles = "Student,Teacher,Admin")]
+        public IActionResult GetTeacherById(int id)
         {
-            var teacher = TeacherService.Get(id);
+            var teacher = _teacherService.GetTeacherById(id);
             if (teacher == null)
             {
                 return NotFound();
             }
-            return teacher;
+            return Ok(teacher);
         }
 
         [HttpPost]
-        public IActionResult Create(Teacher teacher)
+        [Authorize(Roles = "Teacher,Admin")]
+        public IActionResult AddTeacher(Teacher teacher)
         {
-            TeacherService.Add(teacher);
-            return CreatedAtAction(nameof(Get), new { id = teacher.Id }, teacher);
+            _teacherService.AddTeacher(teacher);
+            return CreatedAtAction(nameof(GetTeacherById), new { id = teacher.Id }, teacher);
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(int id, Teacher teacher)
+        [Authorize(Roles = "Teacher,Admin")]
+        public IActionResult UpdateTeacher(int id, Teacher teacher)
         {
             if (id != teacher.Id)
             {
                 return BadRequest();
             }
 
-            var existingTeacher = TeacherService.Get(id);
-            if (existingTeacher == null)
+            var updated = _teacherService.UpdateTeacher(teacher);
+            if (!updated)
             {
                 return NotFound();
             }
 
-            TeacherService.Update(teacher);
             return NoContent();
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        [Authorize(Roles = "Admin")]
+        public IActionResult DeleteTeacher(int id)
         {
-            var teacher = TeacherService.Get(id);
-            if (teacher == null)
+            var deleted = _teacherService.DeleteTeacher(id);
+            if (!deleted)
             {
                 return NotFound();
             }
 
-            TeacherService.Delete(id);
             return NoContent();
         }
     }
