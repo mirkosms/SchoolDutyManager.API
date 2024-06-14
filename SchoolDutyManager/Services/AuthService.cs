@@ -1,17 +1,34 @@
 ﻿using Microsoft.IdentityModel.Tokens;
 using SchoolDutyManager.Models;
+using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
+using System.Text.Json;
 
 namespace SchoolDutyManager.Services
 {
     public static class AuthService
     {
-        private static readonly List<User> users = new List<User>();
-        private static readonly string secretKey = "this_is_a_longer_secret_key_32bytes!"; // This should be the same in both places
+        private static List<User> users;
+        private static readonly string secretKey = "this_is_a_longer_secret_key_32bytes!";
+        private static readonly string filePath = "./Data/users.json";
+
+        static AuthService()
+        {
+            if (File.Exists(filePath))
+            {
+                var json = File.ReadAllText(filePath);
+                users = JsonSerializer.Deserialize<List<User>>(json);
+            }
+            else
+            {
+                users = new List<User>();
+            }
+        }
 
         public static string Login(UserLoginDto loginDto)
         {
@@ -39,6 +56,7 @@ namespace SchoolDutyManager.Services
                 Roles = new List<string>()
             };
             users.Add(user);
+            SaveToFile();
             return new AuthResult { Success = true, Message = "User registered successfully" };
         }
 
@@ -54,7 +72,7 @@ namespace SchoolDutyManager.Services
             {
                 user.Roles.Add(roleAssignmentDto.Role);
             }
-
+            SaveToFile();
             return new AuthResult { Success = true, Message = "Role assigned successfully" };
         }
 
@@ -82,13 +100,19 @@ namespace SchoolDutyManager.Services
                 Subject = new ClaimsIdentity(new Claim[]
                 {
                     new Claim(ClaimTypes.Name, user.Email),
-                    new Claim(ClaimTypes.Role, role) // Dodajemy tylko pierwszą rolę użytkownika
+                    new Claim(ClaimTypes.Role, role)
                 }),
                 Expires = DateTime.UtcNow.AddHours(1),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
+        }
+
+        private static void SaveToFile()
+        {
+            var json = JsonSerializer.Serialize(users, new JsonSerializerOptions { WriteIndented = true });
+            File.WriteAllText(filePath, json);
         }
     }
 }

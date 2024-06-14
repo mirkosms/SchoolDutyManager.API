@@ -42,16 +42,5 @@
     "Duties": [
       "string"
     ]
-  },
-  {
-    "Id": 6,
-    "Name": "string",
-    "Surname": "string",
-    "Classes": [
-      "string"
-    ],
-    "Duties": [
-      "string"
-    ]
   }
 ]

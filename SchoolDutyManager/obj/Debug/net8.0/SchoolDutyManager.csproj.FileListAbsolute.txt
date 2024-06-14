@@ -43,3 +43,5 @@ D:\SchoolDutyManagerAPI\SchoolDutyManager\bin\Debug\net8.0\Microsoft.IdentityMod
 D:\SchoolDutyManagerAPI\SchoolDutyManager\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 D:\SchoolDutyManagerAPI\SchoolDutyManager\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
 D:\SchoolDutyManagerAPI\SchoolDutyManager\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
+D:\SchoolDutyManagerAPI\SchoolDutyManager\bin\Debug\net8.0\Data\dutySwaps.json
+D:\SchoolDutyManagerAPI\SchoolDutyManager\bin\Debug\net8.0\Data\users.json
