@@ -1,16 +1,17 @@
 ﻿using SchoolDutyManager.Models;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.Json;
 
 namespace SchoolDutyManager.Services
 {
-    public static class DutyService
+    public class DutyService : IDutyService
     {
-        private static List<Duty> duties;
-        private static readonly string filePath = "./Data/duties.json";
+        private readonly List<Duty> duties;
+        private readonly string filePath = "./Data/duties.json";
 
-        static DutyService()
+        public DutyService()
         {
             if (File.Exists(filePath))
             {
@@ -23,18 +24,24 @@ namespace SchoolDutyManager.Services
             }
         }
 
-        public static List<Duty> GetAll() => duties;
-
-        public static Duty Get(int id) => duties.Find(d => d.Id == id);
-
-        public static void Add(Duty duty)
+        public List<Duty> GetAllDuties()
         {
-            duty.Id = duties.Count > 0 ? duties[^1].Id + 1 : 1;
+            return duties;
+        }
+
+        public Duty GetDutyById(int id)
+        {
+            return duties.FirstOrDefault(d => d.Id == id);
+        }
+
+        public void AddDuty(Duty duty)
+        {
+            duty.Id = duties.Count > 0 ? duties.Max(d => d.Id) + 1 : 1;
             duties.Add(duty);
             SaveToFile();
         }
 
-        public static void Update(Duty duty)
+        public void UpdateDuty(Duty duty)
         {
             var index = duties.FindIndex(d => d.Id == duty.Id);
             if (index != -1)
@@ -44,9 +51,9 @@ namespace SchoolDutyManager.Services
             }
         }
 
-        public static void Delete(int id)
+        public void DeleteDuty(int id)
         {
-            var duty = Get(id);
+            var duty = GetDutyById(id);
             if (duty != null)
             {
                 duties.Remove(duty);
@@ -54,7 +61,7 @@ namespace SchoolDutyManager.Services
             }
         }
 
-        private static void SaveToFile()
+        private void SaveToFile()
         {
             var json = JsonSerializer.Serialize(duties, new JsonSerializerOptions { WriteIndented = true });
             File.WriteAllText(filePath, json);

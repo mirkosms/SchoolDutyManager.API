@@ -11,10 +11,17 @@ namespace SchoolDutyManager.Controllers
     [Route("[controller]")]
     public class DutiesController : ControllerBase
     {
+        private readonly IDutyService _dutyService;
+
+        public DutiesController(IDutyService dutyService)
+        {
+            _dutyService = dutyService;
+        }
+
         [HttpGet]
         public IActionResult GetAll()
         {
-            var duties = DutyService.GetAll();
+            var duties = _dutyService.GetAllDuties();
             if (duties == null || !duties.Any())
             {
                 return NotFound();
@@ -25,7 +32,7 @@ namespace SchoolDutyManager.Controllers
         [HttpGet("{id}")]
         public ActionResult<Duty> Get(int id)
         {
-            var duty = DutyService.Get(id);
+            var duty = _dutyService.GetDutyById(id);
             if (duty == null)
             {
                 return NotFound();
@@ -34,13 +41,15 @@ namespace SchoolDutyManager.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Teacher,Admin")]
         public IActionResult Create(Duty duty)
         {
-            DutyService.Add(duty);
+            _dutyService.AddDuty(duty);
             return CreatedAtAction(nameof(Get), new { id = duty.Id }, duty);
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Teacher,Admin")]
         public IActionResult Update(int id, Duty duty)
         {
             if (id != duty.Id)
@@ -48,26 +57,27 @@ namespace SchoolDutyManager.Controllers
                 return BadRequest();
             }
 
-            var existingDuty = DutyService.Get(id);
+            var existingDuty = _dutyService.GetDutyById(id);
             if (existingDuty == null)
             {
                 return NotFound();
             }
 
-            DutyService.Update(duty);
+            _dutyService.UpdateDuty(duty);
             return NoContent();
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public IActionResult Delete(int id)
         {
-            var duty = DutyService.Get(id);
+            var duty = _dutyService.GetDutyById(id);
             if (duty == null)
             {
                 return NotFound();
             }
 
-            DutyService.Delete(id);
+            _dutyService.DeleteDuty(id);
             return NoContent();
         }
     }

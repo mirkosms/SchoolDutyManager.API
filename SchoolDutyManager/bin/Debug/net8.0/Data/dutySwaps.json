@@ -3,7 +3,47 @@
     "Id": 1,
     "OriginalDutyId": 1,
     "RequestedDutyId": 2,
+    "Status": "ApprovedByTeacher",
+    "InitiatingStudentId": 1,
+    "RespondingStudentId": 2
+  },
+  {
+    "Id": 2,
+    "OriginalDutyId": 1,
+    "RequestedDutyId": 2,
     "Status": "Pending",
+    "InitiatingStudentId": 1,
+    "RespondingStudentId": 2
+  },
+  {
+    "Id": 3,
+    "OriginalDutyId": 1,
+    "RequestedDutyId": 2,
+    "Status": "Pending",
+    "InitiatingStudentId": 1,
+    "RespondingStudentId": 2
+  },
+  {
+    "Id": 4,
+    "OriginalDutyId": 0,
+    "RequestedDutyId": 0,
+    "Status": "Pending",
+    "InitiatingStudentId": 0,
+    "RespondingStudentId": 0
+  },
+  {
+    "Id": 5,
+    "OriginalDutyId": 1,
+    "RequestedDutyId": 2,
+    "Status": "ApprovedByTeacher",
+    "InitiatingStudentId": 2,
+    "RespondingStudentId": 1
+  },
+  {
+    "Id": 6,
+    "OriginalDutyId": 5,
+    "RequestedDutyId": 3,
+    "Status": "ApprovedByTeacher",
     "InitiatingStudentId": 1,
     "RespondingStudentId": 2
   }

@@ -81,9 +81,24 @@ namespace SchoolDutyManager.Services
             return users.Find(u => u.Email == email);
         }
 
+        public static User GetUserById(int id)
+        {
+            return users.FirstOrDefault(u => u.Id == id);
+        }
+
         public static List<User> GetAllUsers()
         {
             return users;
+        }
+
+        public static void DeleteUser(int id)
+        {
+            var user = GetUserById(id);
+            if (user != null)
+            {
+                users.Remove(user);
+                SaveToFile();
+            }
         }
 
         private static string GenerateJwtToken(User user)

@@ -10,11 +10,13 @@ namespace SchoolDutyManager.Services
     {
         private readonly List<DutySwap> dutySwaps;
         private readonly string filePath = "./Data/dutySwaps.json";
+        private readonly IDutyService _dutyService;
         private readonly IUserService _userService;
 
-        public DutySwapService(IUserService userService)
+        public DutySwapService(IUserService userService, IDutyService dutyService)
         {
             _userService = userService;
+            _dutyService = dutyService;
             if (File.Exists(filePath))
             {
                 var json = File.ReadAllText(filePath);
@@ -77,6 +79,7 @@ namespace SchoolDutyManager.Services
             else if (dutySwap.Status == "ApprovedByStudent" && (user.Roles.Contains("Teacher") || user.Roles.Contains("Admin")))
             {
                 dutySwap.Status = "ApprovedByTeacher";
+                UpdateDutiesFile(dutySwap); // Aktualizacja duties.json po zatwierdzeniu przez nauczyciela lub admina
             }
             else
             {
@@ -85,6 +88,24 @@ namespace SchoolDutyManager.Services
 
             SaveToFile();
             return true;
+        }
+
+        private void UpdateDutiesFile(DutySwap dutySwap)
+        {
+            var originalDuty = _dutyService.GetDutyById(dutySwap.OriginalDutyId);
+            var requestedDuty = _dutyService.GetDutyById(dutySwap.RequestedDutyId);
+
+            if (originalDuty != null && requestedDuty != null)
+            {
+                originalDuty.AssignedPeople.Remove(dutySwap.InitiatingStudentId);
+                originalDuty.AssignedPeople.Add(dutySwap.RespondingStudentId);
+
+                requestedDuty.AssignedPeople.Remove(dutySwap.RespondingStudentId);
+                requestedDuty.AssignedPeople.Add(dutySwap.InitiatingStudentId);
+
+                _dutyService.UpdateDuty(originalDuty);
+                _dutyService.UpdateDuty(requestedDuty);
+            }
         }
 
         public bool RejectDutySwap(int id, string userEmail)
@@ -109,6 +130,16 @@ namespace SchoolDutyManager.Services
             dutySwap.Status = "Rejected";
             SaveToFile();
             return true;
+        }
+
+        public void DeleteDutySwap(int id)
+        {
+            var dutySwap = GetDutySwapById(id);
+            if (dutySwap != null)
+            {
+                dutySwaps.Remove(dutySwap);
+                SaveToFile();
+            }
         }
 
         private void SaveToFile()

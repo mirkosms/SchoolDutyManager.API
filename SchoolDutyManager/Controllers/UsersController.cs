@@ -31,5 +31,19 @@ namespace SchoolDutyManager.Controllers
             var users = AuthService.GetAllUsers();
             return Ok(users);
         }
+
+        [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
+        public IActionResult DeleteUser(int id)
+        {
+            var user = AuthService.GetUserById(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            AuthService.DeleteUser(id);
+            return NoContent();
+        }
     }
 }

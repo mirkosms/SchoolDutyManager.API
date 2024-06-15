@@ -69,5 +69,19 @@ namespace SchoolDutyManager.Controllers
             }
             return NoContent();
         }
+
+        [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
+        public IActionResult Delete(int id)
+        {
+            var dutySwap = _dutySwapService.GetDutySwapById(id);
+            if (dutySwap == null)
+            {
+                return NotFound();
+            }
+
+            _dutySwapService.DeleteDutySwap(id);
+            return NoContent();
+        }
     }
 }

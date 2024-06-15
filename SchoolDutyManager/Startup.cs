@@ -61,6 +61,7 @@ namespace SchoolDutyManager
             });
 
             services.AddSingleton<IUserService, UserService>();
+            services.AddSingleton<IDutyService, DutyService>();
             services.AddSingleton<IDutySwapService, DutySwapService>();
         }
 

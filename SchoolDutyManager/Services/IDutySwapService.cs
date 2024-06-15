@@ -10,5 +10,6 @@ namespace SchoolDutyManager.Services
         void CreateDutySwap(DutySwapRequestDto dutySwapRequestDto);
         bool ApproveDutySwap(int id, string userEmail);
         bool RejectDutySwap(int id, string userEmail);
+        void DeleteDutySwap(int id); // Dodano metodę do usuwania zamiany dyżurów
     }
 }
