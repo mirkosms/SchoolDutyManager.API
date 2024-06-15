@@ -4,7 +4,7 @@
     {
         public int OriginalDutyId { get; set; }
         public int RequestedDutyId { get; set; }
-        public string RequestorEmail { get; set; }
-        public string ResponderEmail { get; set; }
+        public int InitiatingStudentId { get; set; }
+        public int RespondingStudentId { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SchoolDutyManager.Models;
 using SchoolDutyManager.Services;
+using System.Collections.Generic;
 
 namespace SchoolDutyManager.Controllers
 {
@@ -10,28 +11,24 @@ namespace SchoolDutyManager.Controllers
     public class DutySwapsController : ControllerBase
     {
         private readonly IDutySwapService _dutySwapService;
-        private readonly IUserService _userService;
 
-        public DutySwapsController(IDutySwapService dutySwapService, IUserService userService)
+        public DutySwapsController(IDutySwapService dutySwapService)
         {
             _dutySwapService = dutySwapService;
-            _userService = userService;
         }
 
-        [HttpPost]
-        [Authorize(Roles = "Student")]
-        public IActionResult RequestDutySwap(DutySwap dutySwap)
+        [HttpGet]
+        [Authorize(Roles = "Student,Teacher,Admin")]
+        public ActionResult<List<DutySwap>> GetAllDutySwaps()
         {
-            dutySwap.Status = "Pending";
-            _dutySwapService.Add(dutySwap);
-            return CreatedAtAction(nameof(GetDutySwap), new { id = dutySwap.Id }, dutySwap);
+            return Ok(_dutySwapService.GetAllDutySwaps());
         }
 
         [HttpGet("{id}")]
         [Authorize(Roles = "Student,Teacher,Admin")]
-        public IActionResult GetDutySwap(int id)
+        public ActionResult<DutySwap> GetDutySwapById(int id)
         {
-            var dutySwap = _dutySwapService.Get(id);
+            var dutySwap = _dutySwapService.GetDutySwapById(id);
             if (dutySwap == null)
             {
                 return NotFound();
@@ -39,41 +36,37 @@ namespace SchoolDutyManager.Controllers
             return Ok(dutySwap);
         }
 
-        [HttpGet]
-        [Authorize(Roles = "Teacher,Admin")]
-        public IActionResult GetAllDutySwaps()
+        [HttpPost]
+        [Authorize(Roles = "Student")]
+        public ActionResult CreateDutySwap([FromBody] DutySwapRequestDto dutySwapRequestDto)
         {
-            var dutySwaps = _dutySwapService.GetAll();
-            return Ok(dutySwaps);
+            _dutySwapService.CreateDutySwap(dutySwapRequestDto);
+            return CreatedAtAction(nameof(GetDutySwapById), new { id = dutySwapRequestDto.InitiatingStudentId }, dutySwapRequestDto);
         }
 
         [HttpPut("{id}/approve")]
-        [Authorize(Roles = "Teacher,Admin")]
-        public IActionResult ApproveDutySwap(int id)
+        [Authorize(Roles = "Student,Teacher,Admin")]
+        public ActionResult ApproveDutySwap(int id)
         {
-            var dutySwap = _dutySwapService.Get(id);
-            if (dutySwap == null)
+            var userEmail = User.Identity.Name;
+            var success = _dutySwapService.ApproveDutySwap(id, userEmail);
+            if (!success)
             {
-                return NotFound();
+                return Forbid();
             }
-
-            dutySwap.Status = "Approved";
-            _dutySwapService.Update(dutySwap);
             return NoContent();
         }
 
         [HttpPut("{id}/reject")]
-        [Authorize(Roles = "Teacher,Admin")]
-        public IActionResult RejectDutySwap(int id)
+        [Authorize(Roles = "Student,Teacher,Admin")]
+        public ActionResult RejectDutySwap(int id)
         {
-            var dutySwap = _dutySwapService.Get(id);
-            if (dutySwap == null)
+            var userEmail = User.Identity.Name;
+            var success = _dutySwapService.RejectDutySwap(id, userEmail);
+            if (!success)
             {
-                return NotFound();
+                return Forbid();
             }
-
-            dutySwap.Status = "Rejected";
-            _dutySwapService.Update(dutySwap);
             return NoContent();
         }
     }

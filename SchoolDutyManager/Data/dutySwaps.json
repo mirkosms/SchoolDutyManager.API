@@ -3,6 +3,14 @@
     "Id": 1,
     "OriginalDutyId": 1,
     "RequestedDutyId": 2,
+    "Status": "ApprovedByTeacher",
+    "InitiatingStudentId": 1,
+    "RespondingStudentId": 2
+  },
+  {
+    "Id": 2,
+    "OriginalDutyId": 1,
+    "RequestedDutyId": 2,
     "Status": "Pending",
     "InitiatingStudentId": 1,
     "RespondingStudentId": 2

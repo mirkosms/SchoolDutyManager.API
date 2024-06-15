@@ -5,9 +5,10 @@ namespace SchoolDutyManager.Services
 {
     public interface IDutySwapService
     {
-        List<DutySwap> GetAll();
-        DutySwap Get(int id);
-        void Add(DutySwap dutySwap);
-        void Update(DutySwap dutySwap);
+        List<DutySwap> GetAllDutySwaps();
+        DutySwap GetDutySwapById(int id);
+        void CreateDutySwap(DutySwapRequestDto dutySwapRequestDto);
+        bool ApproveDutySwap(int id, string userEmail);
+        bool RejectDutySwap(int id, string userEmail);
     }
 }
