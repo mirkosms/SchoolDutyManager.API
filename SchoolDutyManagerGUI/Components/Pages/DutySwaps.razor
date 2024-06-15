@@ -1,0 +1,56 @@
+﻿@page "/dutyswaps"
+@inject HttpClient Http
+
+<h3>Duty Swaps</h3>
+
+@if (dutySwaps == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Original Duty Id</th>
+                <th>Requested Duty Id</th>
+                <th>Status</th>
+                <th>Initiating Student Id</th>
+                <th>Responding Student Id</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var swap in dutySwaps)
+            {
+                <tr>
+                    <td>@swap.Id</td>
+                    <td>@swap.OriginalDutyId</td>
+                    <td>@swap.RequestedDutyId</td>
+                    <td>@swap.Status</td>
+                    <td>@swap.InitiatingStudentId</td>
+                    <td>@swap.RespondingStudentId</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<DutySwap> dutySwaps;
+
+    protected override async Task OnInitializedAsync()
+    {
+        dutySwaps = await Http.GetFromJsonAsync<List<DutySwap>>("dutyswaps");
+    }
+
+    public class DutySwap
+    {
+        public int Id { get; set; }
+        public int OriginalDutyId { get; set; }
+        public int RequestedDutyId { get; set; }
+        public string Status { get; set; }
+        public int InitiatingStudentId { get; set; }
+        public int RespondingStudentId { get; set; }
+    }
+}
