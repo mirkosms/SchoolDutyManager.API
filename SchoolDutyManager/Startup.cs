@@ -59,6 +59,10 @@ namespace SchoolDutyManager
                     Array.Empty<string>()
                 }});
             });
+
+            services.AddSingleton<IUserService, UserService>();
+            services.AddSingleton<IDutyService, DutyService>();
+            services.AddSingleton<IDutySwapService, DutySwapService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
