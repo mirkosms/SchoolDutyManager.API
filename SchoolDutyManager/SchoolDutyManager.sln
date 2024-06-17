@@ -5,8 +5,6 @@ VisualStudioVersion = 17.8.34511.84
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolDutyManager", "SchoolDutyManager.csproj", "{73D1E267-1C7F-4580-8E16-06DF0381BBE4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolDutyManagerGUI", "..\SchoolDutyManagerGUI\SchoolDutyManagerGUI.csproj", "{C741BD19-DC8C-4318-971F-EEA477371DEA}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{73D1E267-1C7F-4580-8E16-06DF0381BBE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{73D1E267-1C7F-4580-8E16-06DF0381BBE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{73D1E267-1C7F-4580-8E16-06DF0381BBE4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C741BD19-DC8C-4318-971F-EEA477371DEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C741BD19-DC8C-4318-971F-EEA477371DEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C741BD19-DC8C-4318-971F-EEA477371DEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C741BD19-DC8C-4318-971F-EEA477371DEA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

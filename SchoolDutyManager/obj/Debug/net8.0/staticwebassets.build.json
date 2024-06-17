@@ -1,11 +1,77 @@
 {
   "Version": 1,
-  "Hash": "2ANoyFo+dzMs5BpCqf8n1b4EA7F27ZV8AfEYzh4s/Bg=",
+  "Hash": "SbIcVysZM7P5dHprzN3uM3Xs3J1pjeoN7pmb1j2Oz9I=",
   "Source": "SchoolDutyManager",
   "BasePath": "_content/SchoolDutyManager",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
-  "Assets": []
+  "DiscoveryPatterns": [
+    {
+      "Name": "SchoolDutyManager\\wwwroot",
+      "Source": "SchoolDutyManager",
+      "ContentRoot": "D:\\SchoolDutyManagerAPI\\SchoolDutyManager\\wwwroot\\",
+      "BasePath": "_content/SchoolDutyManager",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "D:\\SchoolDutyManagerAPI\\SchoolDutyManager\\wwwroot\\index.html",
+      "SourceId": "SchoolDutyManager",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\SchoolDutyManagerAPI\\SchoolDutyManager\\wwwroot\\",
+      "BasePath": "_content/SchoolDutyManager",
+      "RelativePath": "index.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\index.html"
+    },
+    {
+      "Identity": "D:\\SchoolDutyManagerAPI\\SchoolDutyManager\\wwwroot\\script.js",
+      "SourceId": "SchoolDutyManager",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\SchoolDutyManagerAPI\\SchoolDutyManager\\wwwroot\\",
+      "BasePath": "_content/SchoolDutyManager",
+      "RelativePath": "script.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\script.js"
+    },
+    {
+      "Identity": "D:\\SchoolDutyManagerAPI\\SchoolDutyManager\\wwwroot\\styles.css",
+      "SourceId": "SchoolDutyManager",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\SchoolDutyManagerAPI\\SchoolDutyManager\\wwwroot\\",
+      "BasePath": "_content/SchoolDutyManager",
+      "RelativePath": "styles.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\styles.css"
+    }
+  ]
 }

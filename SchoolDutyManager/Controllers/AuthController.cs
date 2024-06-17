@@ -6,7 +6,7 @@ using SchoolDutyManager.Services;
 namespace SchoolDutyManager.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class AuthController : ControllerBase
     {
         [AllowAnonymous]

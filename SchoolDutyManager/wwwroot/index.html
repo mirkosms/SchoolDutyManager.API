@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Duty Manager</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>School Duty Manager</h1>
+
+    <div id="login-section">
+        <h2>Login</h2>
+        <label for="username">Username:</label>
+        <input type="text" id="username">
+        <label for="password">Password:</label>
+        <input type="password" id="password">
+        <button onclick="login()">Login</button>
+        <button onclick="register()">Register</button>
+    </div>
+
+    <div id="content-section" style="display:none;">
+        <h2>Classes</h2>
+        <div id="classes"></div>
+
+        <h2>Duties</h2>
+        <div id="duties"></div>
+
+        <h2>Duty Swaps</h2>
+        <div id="duty-swaps"></div>
+
+        <button onclick="logout()">Logout</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -59,10 +59,6 @@ namespace SchoolDutyManager
                     Array.Empty<string>()
                 }});
             });
-
-            services.AddSingleton<IUserService, UserService>();
-            services.AddSingleton<IDutyService, DutyService>();
-            services.AddSingleton<IDutySwapService, DutySwapService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -85,9 +81,12 @@ namespace SchoolDutyManager
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "SchoolDutyManager API V1");
             });
 
+            app.UseStaticFiles();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapFallbackToFile("/index.html");
             });
         }
     }
