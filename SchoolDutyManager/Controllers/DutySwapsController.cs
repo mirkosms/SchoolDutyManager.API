@@ -7,7 +7,7 @@ using System.Collections.Generic;
 namespace SchoolDutyManager.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class DutySwapsController : ControllerBase
     {
         private readonly IDutySwapService _dutySwapService;
@@ -45,7 +45,7 @@ namespace SchoolDutyManager.Controllers
         }
 
         [HttpPut("{id}/approve")]
-        [Authorize(Roles = "Student, Teacher, Admin")]
+        [Authorize(Roles = "Teacher, Admin")]
         public ActionResult ApproveDutySwap(int id)
         {
             var userEmail = User.Identity.Name;
@@ -58,7 +58,7 @@ namespace SchoolDutyManager.Controllers
         }
 
         [HttpPut("{id}/reject")]
-        [Authorize(Roles = "Student, Teacher, Admin")]
+        [Authorize(Roles = "Teacher, Admin")]
         public ActionResult RejectDutySwap(int id)
         {
             var userEmail = User.Identity.Name;

@@ -25,12 +25,16 @@
       "PackagePath": "staticwebassets\\duties.js"
     },
     {
-      "Id": "D:\\SchoolDutyManagerAPI\\SchoolDutyManager\\wwwroot\\dutySwaps.html",
-      "PackagePath": "staticwebassets\\dutySwaps.html"
+      "Id": "D:\\SchoolDutyManagerAPI\\SchoolDutyManager\\wwwroot\\duty-swaps.html",
+      "PackagePath": "staticwebassets\\duty-swaps.html"
     },
     {
       "Id": "D:\\SchoolDutyManagerAPI\\SchoolDutyManager\\wwwroot\\dutySwaps.js",
       "PackagePath": "staticwebassets\\dutySwaps.js"
+    },
+    {
+      "Id": "D:\\SchoolDutyManagerAPI\\SchoolDutyManager\\wwwroot\\home.html",
+      "PackagePath": "staticwebassets\\home.html"
     },
     {
       "Id": "D:\\SchoolDutyManagerAPI\\SchoolDutyManager\\wwwroot\\index.html",

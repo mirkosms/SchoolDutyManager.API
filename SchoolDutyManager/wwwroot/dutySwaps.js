@@ -12,14 +12,13 @@
 
     const resultDiv = document.getElementById('result');
     const dutySwapIdInput = document.getElementById('dutySwapId');
-    const dutySwapNameInput = document.getElementById('dutySwapName');
 
     // Function to display duty swaps
     function displayDutySwaps(dutySwaps) {
         resultDiv.innerHTML = '';
         dutySwaps.forEach(dutySwap => {
             const dutySwapDiv = document.createElement('div');
-            dutySwapDiv.textContent = `ID: ${dutySwap.id}, Type: ${dutySwap.type}, Hours: ${dutySwap.hours}, Assigned People: ${dutySwap.assignedPeople.join(', ')}`;
+            dutySwapDiv.textContent = `ID: ${dutySwap.id}, Original Duty ID: ${dutySwap.originalDutyId}, Requested Duty ID: ${dutySwap.requestedDutyId}, Status: ${dutySwap.status}, Initiating Student ID: ${dutySwap.initiatingStudentId}, Responding Student ID: ${dutySwap.respondingStudentId}`;
             resultDiv.appendChild(dutySwapDiv);
         });
     }
@@ -52,7 +51,12 @@
                 'Authorization': `Bearer ${token}`
             }
         })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
             .then(data => {
                 displayDutySwaps([data]);
             })
@@ -62,13 +66,21 @@
     if (userRole === 'Teacher' || userRole === 'Admin') {
         // Add new duty swap
         document.getElementById('addDutySwap').addEventListener('click', function () {
-            const type = prompt('Enter duty swap type:');
-            const hours = prompt('Enter duty swap hours:');
-            if (!type || !hours) {
-                alert('Please enter duty swap type and hours');
+            const originalDutyId = prompt('Enter original duty ID:');
+            const requestedDutyId = prompt('Enter requested duty ID:');
+            const initiatingStudentId = prompt('Enter initiating student ID:');
+            const respondingStudentId = prompt('Enter responding student ID:');
+            if (!originalDutyId || !requestedDutyId || !initiatingStudentId || !respondingStudentId) {
+                alert('Please enter all duty swap details');
                 return;
             }
-            const newDutySwap = { Type: type, Hours: hours, AssignedPeople: [] };
+            const newDutySwap = {
+                OriginalDutyId: parseInt(originalDutyId),
+                RequestedDutyId: parseInt(requestedDutyId),
+                Status: "Pending",
+                InitiatingStudentId: parseInt(initiatingStudentId),
+                RespondingStudentId: parseInt(respondingStudentId)
+            };
             fetch('https://localhost:5001/api/dutySwaps', {
                 method: 'POST',
                 headers: {
