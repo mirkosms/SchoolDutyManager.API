@@ -9,15 +9,6 @@
     ]
   },
   {
-    "Id": 2,
-    "Name": "Math",
-    "Duration": 60,
-    "AssignedPeople": [
-      "John Doe",
-      "Jane Doe"
-    ]
-  },
-  {
     "Id": 3,
     "Name": "Music",
     "Duration": 30,
@@ -33,8 +24,8 @@
   },
   {
     "Id": 5,
-    "Name": "Swimming Pool",
-    "Duration": 60,
+    "Name": "English",
+    "Duration": 45,
     "AssignedPeople": []
   }
 ]

@@ -47,24 +47,23 @@ namespace SchoolDutyManager
                     Type = SecuritySchemeType.ApiKey
                 });
                 c.AddSecurityRequirement(new OpenApiSecurityRequirement {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
                 {
-                    new OpenApiSecurityScheme
-                    {
-                        Reference = new OpenApiReference
-                        {
-                            Type = ReferenceType.SecurityScheme,
-                            Id = "Bearer"
-                        }
-                    },
-                    Array.Empty<string>()
-                }});
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            Array.Empty<string>()
+        }});
             });
 
-            // Zarejestruj serwis ClassService jako singleton
-            services.AddSingleton<IClassService, ClassService>();
             services.AddSingleton<IUserService, UserService>();
             services.AddSingleton<IDutyService, DutyService>();
             services.AddSingleton<IDutySwapService, DutySwapService>();
+            services.AddSingleton<IClassService, ClassService>();
 
             // Dodaj CORS
             services.AddCors(options =>
@@ -88,10 +87,6 @@ namespace SchoolDutyManager
 
             app.UseHttpsRedirection();
             app.UseRouting();
-
-            // Dodaj CORS
-            app.UseCors("AllowAll");
-
             app.UseAuthentication();
             app.UseAuthorization();
 
@@ -109,5 +104,6 @@ namespace SchoolDutyManager
                 endpoints.MapFallbackToFile("/index.html");
             });
         }
+
     }
 }

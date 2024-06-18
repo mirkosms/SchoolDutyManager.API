@@ -43,6 +43,7 @@ namespace SchoolDutyManager.Controllers
             }
             return Ok(result.Message);
         }
+
         [Authorize]
         [HttpGet("userinfo")]
         public IActionResult GetUserInfo()
@@ -62,6 +63,5 @@ namespace SchoolDutyManager.Controllers
 
             return Ok(userInfo);
         }
-
     }
 }

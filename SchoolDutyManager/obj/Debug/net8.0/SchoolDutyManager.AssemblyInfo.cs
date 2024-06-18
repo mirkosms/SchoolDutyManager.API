@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SchoolDutyManager")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7c740aa2e4282ec459dafa21a3905ad6905bb298")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+268d2d6ce453c081777877d1b7f8588ed3211d81")]
 [assembly: System.Reflection.AssemblyProductAttribute("SchoolDutyManager")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SchoolDutyManager")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

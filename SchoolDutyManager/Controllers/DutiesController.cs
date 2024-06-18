@@ -8,7 +8,7 @@ namespace SchoolDutyManager.Controllers
 {
     [Authorize]
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class DutiesController : ControllerBase
     {
         private readonly IDutyService _dutyService;
@@ -18,6 +18,7 @@ namespace SchoolDutyManager.Controllers
             _dutyService = dutyService;
         }
 
+        [Authorize(Roles = "Student, Teacher, Admin")]
         [HttpGet]
         public IActionResult GetAll()
         {
@@ -29,6 +30,7 @@ namespace SchoolDutyManager.Controllers
             return Ok(duties);
         }
 
+        [Authorize(Roles = "Student, Teacher, Admin")]
         [HttpGet("{id}")]
         public ActionResult<Duty> Get(int id)
         {
@@ -37,19 +39,19 @@ namespace SchoolDutyManager.Controllers
             {
                 return NotFound();
             }
-            return duty;
+            return Ok(duty);
         }
 
+        [Authorize(Roles = "Teacher, Admin")]
         [HttpPost]
-        [Authorize(Roles = "Teacher,Admin")]
         public IActionResult Create(Duty duty)
         {
             _dutyService.AddDuty(duty);
             return CreatedAtAction(nameof(Get), new { id = duty.Id }, duty);
         }
 
+        [Authorize(Roles = "Teacher, Admin")]
         [HttpPut("{id}")]
-        [Authorize(Roles = "Teacher,Admin")]
         public IActionResult Update(int id, Duty duty)
         {
             if (id != duty.Id)
@@ -67,8 +69,8 @@ namespace SchoolDutyManager.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
         [Authorize(Roles = "Admin")]
+        [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
             var duty = _dutyService.GetDutyById(id);

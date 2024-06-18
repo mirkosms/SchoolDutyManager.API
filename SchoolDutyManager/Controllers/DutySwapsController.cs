@@ -18,14 +18,14 @@ namespace SchoolDutyManager.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Student,Teacher,Admin")]
+        [Authorize(Roles = "Student, Teacher, Admin")]
         public ActionResult<List<DutySwap>> GetAllDutySwaps()
         {
             return Ok(_dutySwapService.GetAllDutySwaps());
         }
 
         [HttpGet("{id}")]
-        [Authorize(Roles = "Student,Teacher,Admin")]
+        [Authorize(Roles = "Student, Teacher, Admin")]
         public ActionResult<DutySwap> GetDutySwapById(int id)
         {
             var dutySwap = _dutySwapService.GetDutySwapById(id);
@@ -45,7 +45,7 @@ namespace SchoolDutyManager.Controllers
         }
 
         [HttpPut("{id}/approve")]
-        [Authorize(Roles = "Student,Teacher,Admin")]
+        [Authorize(Roles = "Student, Teacher, Admin")]
         public ActionResult ApproveDutySwap(int id)
         {
             var userEmail = User.Identity.Name;
@@ -58,7 +58,7 @@ namespace SchoolDutyManager.Controllers
         }
 
         [HttpPut("{id}/reject")]
-        [Authorize(Roles = "Student,Teacher,Admin")]
+        [Authorize(Roles = "Student, Teacher, Admin")]
         public ActionResult RejectDutySwap(int id)
         {
             var userEmail = User.Identity.Name;

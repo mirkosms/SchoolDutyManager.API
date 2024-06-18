@@ -11,6 +11,7 @@ namespace SchoolDutyManager.Controllers
     [Route("[controller]")]
     public class StudentsController : ControllerBase
     {
+        [Authorize(Roles = "Student, Teacher, Admin")]
         [HttpGet]
         public IActionResult GetAll()
         {
@@ -22,6 +23,7 @@ namespace SchoolDutyManager.Controllers
             return Ok(students);
         }
 
+        [Authorize(Roles = "Student, Teacher, Admin")]
         [HttpGet("{id}")]
         public ActionResult<Student> Get(int id)
         {
@@ -33,6 +35,7 @@ namespace SchoolDutyManager.Controllers
             return student;
         }
 
+        [Authorize(Roles = "Teacher, Admin")]
         [HttpPost]
         public IActionResult Create(Student student)
         {
@@ -40,6 +43,7 @@ namespace SchoolDutyManager.Controllers
             return CreatedAtAction(nameof(Get), new { id = student.Id }, student);
         }
 
+        [Authorize(Roles = "Teacher, Admin")]
         [HttpPut("{id}")]
         public IActionResult Update(int id, Student student)
         {
@@ -58,6 +62,7 @@ namespace SchoolDutyManager.Controllers
             return NoContent();
         }
 
+        [Authorize(Roles = "Teacher, Admin")]
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
