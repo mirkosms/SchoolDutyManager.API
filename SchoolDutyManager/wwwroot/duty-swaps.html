@@ -9,16 +9,22 @@
 <body>
     <div class="container">
         <h1>Duty Swaps</h1>
-        <button id="getAll">Get All Duty Swaps</button>
-        <button id="getById">Get Duty Swap by ID</button>
-        <button id="addDutySwap">Add Duty Swap</button>
-        <button id="approveDutySwap">Approve Duty Swap</button>
-        <button id="rejectDutySwap">Reject Duty Swap</button>
-        <div>
+        <div id="actions">
+            <button id="logout">Logout</button>
+            <button id="home">Home</button>
+            <button id="getAll">Get All Duty Swaps</button>
+            <button id="getById">Get Duty Swap by ID</button>
+            <button id="addDutySwap">Add Duty Swap</button>
+            <button id="approveDutySwap">Approve Duty Swap</button>
+            <button id="rejectDutySwap">Reject Duty Swap</button>
+            <button id="deleteDutySwap">Delete Duty Swap</button>
+        </div>
+        <div id="filter">
             <input type="text" id="dutySwapId" placeholder="Duty Swap ID">
+            <input type="text" id="dutySwapName" placeholder="Duty Swap Name">
         </div>
         <div id="result"></div>
     </div>
-    <script src="js/dutySwaps.js"></script>
+    <script src="dutySwaps.js"></script>
 </body>
 </html>

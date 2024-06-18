@@ -8,7 +8,7 @@
     const payload = JSON.parse(atob(token.split('.')[1]));
     const userRole = payload.role;
 
-    console.log('User role:', userRole); // Logowanie roli użytkownika
+    console.log('User role:', userRole);
 
     const resultDiv = document.getElementById('result');
     const classIdInput = document.getElementById('classId');
@@ -150,4 +150,15 @@
         document.getElementById('updateClass').style.display = 'none';
         document.getElementById('deleteClass').style.display = 'none';
     }
+
+    // Event listener for logout
+    document.getElementById('logout').addEventListener('click', function () {
+        sessionStorage.removeItem('token');
+        window.location.href = 'index.html';
+    });
+
+    // Event listener for home
+    document.getElementById('home').addEventListener('click', function () {
+        window.location.href = 'home.html';
+    });
 });

@@ -4,6 +4,7 @@
         window.location.href = 'index.html';
     }
 
+    // Decode token to get user role
     const payload = JSON.parse(atob(token.split('.')[1]));
     const userRole = payload.role;
 
@@ -13,6 +14,7 @@
     const dutyIdInput = document.getElementById('dutyId');
     const dutyNameInput = document.getElementById('dutyName');
 
+    // Function to display duties
     function displayDuties(duties) {
         resultDiv.innerHTML = '';
         duties.forEach(duty => {
@@ -22,42 +24,43 @@
         });
     }
 
-    if (userRole === 'Student' || userRole === 'Teacher' || userRole === 'Admin') {
-        document.getElementById('getAll').addEventListener('click', function () {
-            fetch('https://localhost:5001/api/duties', {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            })
-                .then(response => response.json())
-                .then(data => {
-                    displayDuties(data);
-                })
-                .catch(error => console.error('Error fetching duties:', error));
-        });
-
-        document.getElementById('getById').addEventListener('click', function () {
-            const id = dutyIdInput.value;
-            if (!id) {
-                alert('Please enter a duty ID');
-                return;
+    // Fetch all duties
+    document.getElementById('getAll').addEventListener('click', function () {
+        fetch('https://localhost:5001/api/duties', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
             }
-            fetch(`https://localhost:5001/api/duties/${id}`, {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
+        })
+            .then(response => response.json())
+            .then(data => {
+                displayDuties(data);
             })
-                .then(response => response.json())
-                .then(data => {
-                    displayDuties([data]);
-                })
-                .catch(error => console.error('Error fetching duty by ID:', error));
-        });
-    }
+            .catch(error => console.error('Error fetching duties:', error));
+    });
+
+    // Fetch duty by ID
+    document.getElementById('getById').addEventListener('click', function () {
+        const id = dutyIdInput.value;
+        if (!id) {
+            alert('Please enter a duty ID');
+            return;
+        }
+        fetch(`https://localhost:5001/api/duties/${id}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                displayDuties([data]);
+            })
+            .catch(error => console.error('Error fetching duty by ID:', error));
+    });
 
     if (userRole === 'Teacher' || userRole === 'Admin') {
+        // Add new duty
         document.getElementById('addDuty').addEventListener('click', function () {
             const type = prompt('Enter duty type:');
             const hours = prompt('Enter duty hours:');
@@ -82,6 +85,7 @@
                 .catch(error => console.error('Error adding duty:', error));
         });
 
+        // Update duty
         document.getElementById('updateDuty').addEventListener('click', function () {
             const id = dutyIdInput.value;
             if (!id) {
@@ -117,6 +121,7 @@
                 .catch(error => console.error('Error updating duty:', error));
         });
 
+        // Delete duty
         document.getElementById('deleteDuty').addEventListener('click', function () {
             const id = dutyIdInput.value;
             if (!id) {
@@ -141,9 +146,21 @@
         });
     }
 
+    // Hide buttons not available for the user's role
     if (userRole === 'Student') {
         document.getElementById('addDuty').style.display = 'none';
         document.getElementById('updateDuty').style.display = 'none';
         document.getElementById('deleteDuty').style.display = 'none';
     }
+
+    // Event listener for logout
+    document.getElementById('logout').addEventListener('click', function () {
+        sessionStorage.removeItem('token');
+        window.location.href = 'index.html';
+    });
+
+    // Event listener for home
+    document.getElementById('home').addEventListener('click', function () {
+        window.location.href = 'home.html';
+    });
 });

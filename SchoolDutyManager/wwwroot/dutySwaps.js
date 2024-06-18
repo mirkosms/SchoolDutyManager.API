@@ -4,6 +4,7 @@
         window.location.href = 'index.html';
     }
 
+    // Decode token to get user role
     const payload = JSON.parse(atob(token.split('.')[1]));
     const userRole = payload.role;
 
@@ -11,7 +12,9 @@
 
     const resultDiv = document.getElementById('result');
     const dutySwapIdInput = document.getElementById('dutySwapId');
+    const dutySwapNameInput = document.getElementById('dutySwapName');
 
+    // Function to display duty swaps
     function displayDutySwaps(dutySwaps) {
         resultDiv.innerHTML = '';
         dutySwaps.forEach(dutySwap => {
@@ -21,42 +24,43 @@
         });
     }
 
-    if (userRole === 'Student' || userRole === 'Teacher' || userRole === 'Admin') {
-        document.getElementById('getAll').addEventListener('click', function () {
-            fetch('https://localhost:5001/api/dutySwaps', {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            })
-                .then(response => response.json())
-                .then(data => {
-                    displayDutySwaps(data);
-                })
-                .catch(error => console.error('Error fetching duty swaps:', error));
-        });
-
-        document.getElementById('getById').addEventListener('click', function () {
-            const id = dutySwapIdInput.value;
-            if (!id) {
-                alert('Please enter a duty swap ID');
-                return;
+    // Fetch all duty swaps
+    document.getElementById('getAll').addEventListener('click', function () {
+        fetch('https://localhost:5001/api/dutySwaps', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
             }
-            fetch(`https://localhost:5001/api/dutySwaps/${id}`, {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
+        })
+            .then(response => response.json())
+            .then(data => {
+                displayDutySwaps(data);
             })
-                .then(response => response.json())
-                .then(data => {
-                    displayDutySwaps([data]);
-                })
-                .catch(error => console.error('Error fetching duty swap by ID:', error));
-        });
-    }
+            .catch(error => console.error('Error fetching duty swaps:', error));
+    });
+
+    // Fetch duty swap by ID
+    document.getElementById('getById').addEventListener('click', function () {
+        const id = dutySwapIdInput.value;
+        if (!id) {
+            alert('Please enter a duty swap ID');
+            return;
+        }
+        fetch(`https://localhost:5001/api/dutySwaps/${id}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                displayDutySwaps([data]);
+            })
+            .catch(error => console.error('Error fetching duty swap by ID:', error));
+    });
 
     if (userRole === 'Teacher' || userRole === 'Admin') {
+        // Add new duty swap
         document.getElementById('addDutySwap').addEventListener('click', function () {
             const type = prompt('Enter duty swap type:');
             const hours = prompt('Enter duty swap hours:');
@@ -64,7 +68,7 @@
                 alert('Please enter duty swap type and hours');
                 return;
             }
-            const newDutySwap = { type: type, hours: hours, assignedPeople: [] };
+            const newDutySwap = { Type: type, Hours: hours, AssignedPeople: [] };
             fetch('https://localhost:5001/api/dutySwaps', {
                 method: 'POST',
                 headers: {
@@ -81,6 +85,7 @@
                 .catch(error => console.error('Error adding duty swap:', error));
         });
 
+        // Approve duty swap
         document.getElementById('approveDutySwap').addEventListener('click', function () {
             const id = dutySwapIdInput.value;
             if (!id) {
@@ -107,6 +112,7 @@
                 .catch(error => console.error('Error approving duty swap:', error));
         });
 
+        // Reject duty swap
         document.getElementById('rejectDutySwap').addEventListener('click', function () {
             const id = dutySwapIdInput.value;
             if (!id) {
@@ -132,11 +138,48 @@
                 })
                 .catch(error => console.error('Error rejecting duty swap:', error));
         });
+
+        // Delete duty swap
+        document.getElementById('deleteDutySwap').addEventListener('click', function () {
+            const id = dutySwapIdInput.value;
+            if (!id) {
+                alert('Please enter a duty swap ID');
+                return;
+            }
+            fetch(`https://localhost:5001/api/dutySwaps/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+                .then(response => {
+                    if (response.ok) {
+                        alert('Duty Swap deleted successfully');
+                        resultDiv.innerHTML = '';
+                    } else {
+                        throw new Error('Error deleting duty swap');
+                    }
+                })
+                .catch(error => console.error('Error deleting duty swap:', error));
+        });
     }
 
+    // Hide buttons not available for the user's role
     if (userRole === 'Student') {
         document.getElementById('addDutySwap').style.display = 'none';
         document.getElementById('approveDutySwap').style.display = 'none';
         document.getElementById('rejectDutySwap').style.display = 'none';
+        document.getElementById('deleteDutySwap').style.display = 'none';
     }
+
+    // Event listener for logout
+    document.getElementById('logout').addEventListener('click', function () {
+        sessionStorage.removeItem('token');
+        window.location.href = 'index.html';
+    });
+
+    // Event listener for home
+    document.getElementById('home').addEventListener('click', function () {
+        window.location.href = 'home.html';
+    });
 });

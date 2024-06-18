@@ -3,22 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>School Duty Manager</title>
+    <title>Duties</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <h1>School Duty Manager</h1>
-        <h2>Duties</h2>
-        <div class="button-container">
+        <h1>Duties</h1>
+        <div id="actions">
+            <button id="logout">Logout</button>
+            <button id="home">Home</button>
             <button id="getAll">Get All Duties</button>
             <button id="getById">Get Duty by ID</button>
             <button id="addDuty">Add Duty</button>
             <button id="updateDuty">Update Duty</button>
             <button id="deleteDuty">Delete Duty</button>
         </div>
-        <input type="text" id="dutyId" placeholder="Duty ID">
-        <input type="text" id="dutyName" placeholder="Duty Name">
+        <div id="filter">
+            <input type="text" id="dutyId" placeholder="Duty ID">
+            <input type="text" id="dutyName" placeholder="Duty Name">
+        </div>
         <div id="result"></div>
     </div>
     <script src="duties.js"></script>
