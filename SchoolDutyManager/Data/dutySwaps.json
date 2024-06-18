@@ -19,7 +19,7 @@
     "Id": 3,
     "OriginalDutyId": 1,
     "RequestedDutyId": 2,
-    "Status": "Pending",
+    "Status": "ApprovedByStudent",
     "InitiatingStudentId": 1,
     "RespondingStudentId": 2
   },
@@ -43,6 +43,14 @@
     "Id": 6,
     "OriginalDutyId": 5,
     "RequestedDutyId": 3,
+    "Status": "ApprovedByTeacher",
+    "InitiatingStudentId": 1,
+    "RespondingStudentId": 2
+  },
+  {
+    "Id": 7,
+    "OriginalDutyId": 3,
+    "RequestedDutyId": 4,
     "Status": "ApprovedByTeacher",
     "InitiatingStudentId": 1,
     "RespondingStudentId": 2

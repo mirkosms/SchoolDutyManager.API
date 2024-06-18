@@ -46,5 +46,13 @@
     "Status": "ApprovedByTeacher",
     "InitiatingStudentId": 1,
     "RespondingStudentId": 2
+  },
+  {
+    "Id": 7,
+    "OriginalDutyId": 3,
+    "RequestedDutyId": 4,
+    "Status": "ApprovedByTeacher",
+    "InitiatingStudentId": 1,
+    "RespondingStudentId": 2
   }
 ]

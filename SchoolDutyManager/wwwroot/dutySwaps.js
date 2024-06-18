@@ -51,136 +51,126 @@
                 'Authorization': `Bearer ${token}`
             }
         })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
+            .then(response => response.json())
             .then(data => {
                 displayDutySwaps([data]);
             })
             .catch(error => console.error('Error fetching duty swap by ID:', error));
     });
 
-    if (userRole === 'Teacher' || userRole === 'Admin') {
-        // Add new duty swap
-        document.getElementById('addDutySwap').addEventListener('click', function () {
-            const originalDutyId = prompt('Enter original duty ID:');
-            const requestedDutyId = prompt('Enter requested duty ID:');
-            const initiatingStudentId = prompt('Enter initiating student ID:');
-            const respondingStudentId = prompt('Enter responding student ID:');
-            if (!originalDutyId || !requestedDutyId || !initiatingStudentId || !respondingStudentId) {
-                alert('Please enter all duty swap details');
-                return;
-            }
-            const newDutySwap = {
-                OriginalDutyId: parseInt(originalDutyId),
-                RequestedDutyId: parseInt(requestedDutyId),
-                Status: "Pending",
-                InitiatingStudentId: parseInt(initiatingStudentId),
-                RespondingStudentId: parseInt(respondingStudentId)
-            };
-            fetch('https://localhost:5001/api/dutySwaps', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
-                body: JSON.stringify(newDutySwap)
+    // Add new duty swap
+    document.getElementById('addDutySwap').addEventListener('click', function () {
+        const originalDutyId = prompt('Enter original duty ID:');
+        const requestedDutyId = prompt('Enter requested duty ID:');
+        const initiatingStudentId = prompt('Enter initiating student ID:');
+        const respondingStudentId = prompt('Enter responding student ID:');
+        if (!originalDutyId || !requestedDutyId || !initiatingStudentId || !respondingStudentId) {
+            alert('Please enter all duty swap details');
+            return;
+        }
+        const newDutySwap = {
+            OriginalDutyId: parseInt(originalDutyId),
+            RequestedDutyId: parseInt(requestedDutyId),
+            Status: "Pending",
+            InitiatingStudentId: parseInt(initiatingStudentId),
+            RespondingStudentId: parseInt(respondingStudentId)
+        };
+        fetch('https://localhost:5001/api/dutySwaps', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(newDutySwap)
+        })
+            .then(response => response.json())
+            .then(data => {
+                alert('Duty Swap added successfully');
+                displayDutySwaps([data]);
             })
-                .then(response => response.json())
-                .then(data => {
-                    alert('Duty Swap added successfully');
-                    displayDutySwaps([data]);
-                })
-                .catch(error => console.error('Error adding duty swap:', error));
-        });
+            .catch(error => console.error('Error adding duty swap:', error));
+    });
 
-        // Approve duty swap
-        document.getElementById('approveDutySwap').addEventListener('click', function () {
-            const id = dutySwapIdInput.value;
-            if (!id) {
-                alert('Please enter a duty swap ID');
-                return;
+    // Approve duty swap
+    document.getElementById('approveDutySwap').addEventListener('click', function () {
+        const id = dutySwapIdInput.value;
+        if (!id) {
+            alert('Please enter a duty swap ID');
+            return;
+        }
+        fetch(`https://localhost:5001/api/dutySwaps/${id}/approve`, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `Bearer ${token}`
             }
-            fetch(`https://localhost:5001/api/dutySwaps/${id}/approve`, {
-                method: 'PUT',
-                headers: {
-                    'Authorization': `Bearer ${token}`
+        })
+            .then(response => {
+                if (response.ok) {
+                    alert('Duty Swap approved successfully');
+                    return response.json();
+                } else {
+                    throw new Error('Error approving duty swap');
                 }
             })
-                .then(response => {
-                    if (response.ok) {
-                        alert('Duty Swap approved successfully');
-                        return response.json();
-                    } else {
-                        throw new Error('Error approving duty swap');
-                    }
-                })
-                .then(data => {
-                    displayDutySwaps([data]);
-                })
-                .catch(error => console.error('Error approving duty swap:', error));
-        });
+            .then(data => {
+                displayDutySwaps([data]);
+            })
+            .catch(error => console.error('Error approving duty swap:', error));
+    });
 
-        // Reject duty swap
-        document.getElementById('rejectDutySwap').addEventListener('click', function () {
-            const id = dutySwapIdInput.value;
-            if (!id) {
-                alert('Please enter a duty swap ID');
-                return;
+    // Reject duty swap
+    document.getElementById('rejectDutySwap').addEventListener('click', function () {
+        const id = dutySwapIdInput.value;
+        if (!id) {
+            alert('Please enter a duty swap ID');
+            return;
+        }
+        fetch(`https://localhost:5001/api/dutySwaps/${id}/reject`, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `Bearer ${token}`
             }
-            fetch(`https://localhost:5001/api/dutySwaps/${id}/reject`, {
-                method: 'PUT',
-                headers: {
-                    'Authorization': `Bearer ${token}`
+        })
+            .then(response => {
+                if (response.ok) {
+                    alert('Duty Swap rejected successfully');
+                    return response.json();
+                } else {
+                    throw new Error('Error rejecting duty swap');
                 }
             })
-                .then(response => {
-                    if (response.ok) {
-                        alert('Duty Swap rejected successfully');
-                        return response.json();
-                    } else {
-                        throw new Error('Error rejecting duty swap');
-                    }
-                })
-                .then(data => {
-                    displayDutySwaps([data]);
-                })
-                .catch(error => console.error('Error rejecting duty swap:', error));
-        });
+            .then(data => {
+                displayDutySwaps([data]);
+            })
+            .catch(error => console.error('Error rejecting duty swap:', error));
+    });
 
-        // Delete duty swap
-        document.getElementById('deleteDutySwap').addEventListener('click', function () {
-            const id = dutySwapIdInput.value;
-            if (!id) {
-                alert('Please enter a duty swap ID');
-                return;
+    // Delete duty swap
+    document.getElementById('deleteDutySwap').addEventListener('click', function () {
+        const id = dutySwapIdInput.value;
+        if (!id) {
+            alert('Please enter a duty swap ID');
+            return;
+        }
+        fetch(`https://localhost:5001/api/dutySwaps/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${token}`
             }
-            fetch(`https://localhost:5001/api/dutySwaps/${id}`, {
-                method: 'DELETE',
-                headers: {
-                    'Authorization': `Bearer ${token}`
+        })
+            .then(response => {
+                if (response.ok) {
+                    alert('Duty Swap deleted successfully');
+                    resultDiv.innerHTML = '';
+                } else {
+                    throw new Error('Error deleting duty swap');
                 }
             })
-                .then(response => {
-                    if (response.ok) {
-                        alert('Duty Swap deleted successfully');
-                        resultDiv.innerHTML = '';
-                    } else {
-                        throw new Error('Error deleting duty swap');
-                    }
-                })
-                .catch(error => console.error('Error deleting duty swap:', error));
-        });
-    }
+            .catch(error => console.error('Error deleting duty swap:', error));
+    });
 
     // Hide buttons not available for the user's role
     if (userRole === 'Student') {
-        document.getElementById('addDutySwap').style.display = 'none';
-        document.getElementById('approveDutySwap').style.display = 'none';
-        document.getElementById('rejectDutySwap').style.display = 'none';
         document.getElementById('deleteDutySwap').style.display = 'none';
     }
 

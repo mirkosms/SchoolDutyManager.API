@@ -45,7 +45,7 @@ namespace SchoolDutyManager.Controllers
         }
 
         [HttpPut("{id}/approve")]
-        [Authorize(Roles = "Teacher, Admin")]
+        [Authorize(Roles = "Student, Teacher, Admin")]
         public ActionResult ApproveDutySwap(int id)
         {
             var userEmail = User.Identity.Name;
@@ -58,7 +58,7 @@ namespace SchoolDutyManager.Controllers
         }
 
         [HttpPut("{id}/reject")]
-        [Authorize(Roles = "Teacher, Admin")]
+        [Authorize(Roles = "Student, Teacher, Admin")]
         public ActionResult RejectDutySwap(int id)
         {
             var userEmail = User.Identity.Name;

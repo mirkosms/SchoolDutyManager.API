@@ -67,16 +67,11 @@ namespace SchoolDutyManager.Services
                 return false;
             }
 
-            if (user.Roles.Contains("Student") && dutySwap.RespondingStudentId != user.Id)
-            {
-                return false;
-            }
-
-            if (dutySwap.Status == "Pending" && user.Roles.Contains("Student"))
+            if (user.Roles.Contains("Student") && dutySwap.RespondingStudentId == user.Id && dutySwap.Status == "Pending")
             {
                 dutySwap.Status = "ApprovedByStudent";
             }
-            else if (dutySwap.Status == "ApprovedByStudent" && (user.Roles.Contains("Teacher") || user.Roles.Contains("Admin")))
+            else if ((user.Roles.Contains("Teacher") || user.Roles.Contains("Admin")) && dutySwap.Status == "ApprovedByStudent")
             {
                 dutySwap.Status = "ApprovedByTeacher";
                 UpdateDutiesFile(dutySwap); // Aktualizacja duties.json po zatwierdzeniu przez nauczyciela lub admina
@@ -122,7 +117,15 @@ namespace SchoolDutyManager.Services
                 return false;
             }
 
-            if (user.Roles.Contains("Student") && dutySwap.RespondingStudentId != user.Id)
+            if (user.Roles.Contains("Student") && dutySwap.RespondingStudentId == user.Id && dutySwap.Status == "Pending")
+            {
+                dutySwap.Status = "RejectedByStudent";
+            }
+            else if ((user.Roles.Contains("Teacher") || user.Roles.Contains("Admin")) && dutySwap.Status == "ApprovedByStudent")
+            {
+                dutySwap.Status = "RejectedByTeacher";
+            }
+            else
             {
                 return false;
             }
