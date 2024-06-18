@@ -4,6 +4,7 @@
     "Type": "Duty",
     "Hours": "11-12",
     "AssignedPeople": [
+      2,
       2
     ]
   },
@@ -12,7 +13,7 @@
     "Type": "Duty",
     "Hours": "11-12",
     "AssignedPeople": [
-      2
+      1
     ]
   },
   {

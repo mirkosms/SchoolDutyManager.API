@@ -170,7 +170,7 @@
     });
 
     // Hide buttons not available for the user's role
-    if (userRole === 'Student') {
+    if (userRole === 'Student' || userRole === 'Teacher') {
         document.getElementById('deleteDutySwap').style.display = 'none';
     }
 
