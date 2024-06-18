@@ -63,6 +63,7 @@ namespace SchoolDutyManager
             services.AddSingleton<IUserService, UserService>();
             services.AddSingleton<IDutyService, DutyService>();
             services.AddSingleton<IDutySwapService, DutySwapService>();
+            // Nie rejestruj ClassService jako Singleton
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

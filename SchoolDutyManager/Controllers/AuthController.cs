@@ -43,5 +43,25 @@ namespace SchoolDutyManager.Controllers
             }
             return Ok(result.Message);
         }
+        [Authorize]
+        [HttpGet("userinfo")]
+        public IActionResult GetUserInfo()
+        {
+            var email = User.Identity.Name;
+            var user = AuthService.GetUserByEmail(email);
+            if (user == null)
+            {
+                return NotFound("User not found");
+            }
+
+            var userInfo = new
+            {
+                user.Email,
+                Roles = user.Roles
+            };
+
+            return Ok(userInfo);
+        }
+
     }
 }

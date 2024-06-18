@@ -7,34 +7,24 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>School Duty Manager</h1>
-
-    <div id="login-section">
-        <h2>Login</h2>
-        <label for="username">Username:</label>
-        <input type="text" id="username">
-        <label for="password">Password:</label>
-        <input type="password" id="password">
-        <button onclick="login()">Login</button>
-        <button onclick="register()">Register</button>
+    <div class="container">
+        <h1>School Duty Manager</h1>
+        <div class="login-form">
+            <h2>Login</h2>
+            <form id="login-form">
+                <div class="mb-3">
+                    <label for="email">Username:</label>
+                    <input type="email" id="email" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" class="form-control" required>
+                </div>
+                <button type="submit" id="login-btn" class="btn btn-primary">Login</button>
+                <button type="button" class="btn btn-secondary" onclick="location.href='register.html'">Register</button>
+            </form>
+        </div>
     </div>
-
-    <div id="content-section" style="display:none;">
-        <h2>Classes</h2>
-        <div id="classes"></div>
-        <button onclick="loadClasses()">Load Classes</button>
-
-        <h2>Duties</h2>
-        <div id="duties"></div>
-        <button onclick="loadDuties()">Load Duties</button>
-
-        <h2>Duty Swaps</h2>
-        <div id="duty-swaps"></div>
-        <button onclick="loadDutySwaps()">Load Duty Swaps</button>
-
-        <button onclick="logout()">Logout</button>
-    </div>
-
     <script src="script.js"></script>
 </body>
 </html>

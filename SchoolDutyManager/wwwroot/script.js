@@ -1,139 +1,29 @@
-const apiBaseUrl = "https://localhost:5001/api"; // Adres backendu
+document.getElementById('login-form').addEventListener('submit', async function (event) {
+    event.preventDefault();
 
-async function login() {
-    const username = document.getElementById('username').value;
+    const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
     try {
-        console.log(`Attempting to login with: ${username} ${password}`);
-        const response = await fetch(`${apiBaseUrl}/auth/login`, {
+        const response = await fetch('https://localhost:5001/api/auth/login', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ email: username, password: password })
+            body: JSON.stringify({ email, password }),
         });
 
         if (response.ok) {
-            const result = await response.json();
-            localStorage.setItem('token', result.token);
-            document.getElementById('login-section').style.display = 'none';
-            document.getElementById('content-section').style.display = 'block';
-            loadData();
+            const data = await response.json();
+            sessionStorage.setItem('token', data.Token); // Zapisz token w sessionStorage
+            window.location.href = 'dashboard.html'; // Przekierowanie na stronê dashboardu
         } else {
-            const errorText = await response.text();
-            alert(`Login failed: ${errorText}`);
+            const error = await response.json();
+            console.error('Login failed:', error.message);
+            alert('Login failed: ' + error.message);
         }
     } catch (error) {
-        alert(`Login failed: ${error.message}`);
+        console.error('Login error:', error);
+        alert('Login error: ' + error.message);
     }
-}
-
-async function register() {
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-
-    try {
-        console.log(`Attempting to register with: ${username} ${password}`);
-        const response = await fetch(`${apiBaseUrl}/auth/register`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ email: username, password: password })
-        });
-
-        if (response.ok) {
-            alert('Registration successful. You can now log in.');
-        } else {
-            const errorText = await response.text();
-            alert(`Registration failed: ${errorText}`);
-        }
-    } catch (error) {
-        alert(`Registration failed: ${error.message}`);
-    }
-}
-
-function logout() {
-    localStorage.removeItem('token');
-    document.getElementById('login-section').style.display = 'block';
-    document.getElementById('content-section').style.display = 'none';
-}
-
-async function loadData() {
-    await loadClasses();
-    await loadDuties();
-    await loadDutySwaps();
-}
-
-async function loadClasses() {
-    try {
-        const response = await fetch(`${apiBaseUrl}/classes`, {
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
-            }
-        });
-
-        if (response.ok) {
-            const classes = await response.json();
-            const classesDiv = document.getElementById('classes');
-            classesDiv.innerHTML = '';
-            classes.forEach(c => {
-                classesDiv.innerHTML += `<p>${c.name}</p>`;
-            });
-        } else {
-            const errorText = await response.text();
-            alert(`Failed to load classes: ${errorText}`);
-        }
-    } catch (error) {
-        alert(`Failed to load classes: ${error.message}`);
-    }
-}
-
-async function loadDuties() {
-    try {
-        const response = await fetch(`${apiBaseUrl}/duties`, {
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
-            }
-        });
-
-        if (response.ok) {
-            const duties = await response.json();
-            const dutiesDiv = document.getElementById('duties');
-            dutiesDiv.innerHTML = '';
-            duties.forEach(d => {
-                dutiesDiv.innerHTML += `<p>${d.type}: ${d.hours}</p>`;
-            });
-        } else {
-            const errorText = await response.text();
-            alert(`Failed to load duties: ${errorText}`);
-        }
-    } catch (error) {
-        alert(`Failed to load duties: ${error.message}`);
-    }
-}
-
-async function loadDutySwaps() {
-    try {
-        const response = await fetch(`${apiBaseUrl}/dutyswaps`, {
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
-            }
-        });
-
-        if (response.ok) {
-            const swaps = await response.json();
-            const swapsDiv = document.getElementById('duty-swaps');
-            swapsDiv.innerHTML = '';
-            swaps.forEach(s => {
-                swapsDiv.innerHTML += `<p>Original Duty: ${s.originalDutyId}, Requested Duty: ${s.requestedDutyId}</p>`;
-            });
-        } else {
-            const errorText = await response.text();
-            alert(`Failed to load duty swaps: ${errorText}`);
-        }
-    } catch (error) {
-        alert(`Failed to load duty swaps: ${error.message}`);
-    }
-}
+});
