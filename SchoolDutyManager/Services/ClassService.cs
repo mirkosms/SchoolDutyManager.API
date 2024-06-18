@@ -6,12 +6,12 @@ using System;
 
 namespace SchoolDutyManager.Services
 {
-    public static class ClassService
+    public class ClassService : IClassService
     {
-        private static List<Class> classes;
-        private static readonly string filePath = "./Data/classes.json";
+        private List<Class> classes;
+        private readonly string filePath = "./Data/classes.json";
 
-        static ClassService()
+        public ClassService()
         {
             try
             {
@@ -31,7 +31,7 @@ namespace SchoolDutyManager.Services
             }
         }
 
-        public static List<Class> GetAll()
+        public List<Class> GetAll()
         {
             try
             {
@@ -44,7 +44,7 @@ namespace SchoolDutyManager.Services
             }
         }
 
-        public static Class Get(int id)
+        public Class Get(int id)
         {
             try
             {
@@ -57,7 +57,7 @@ namespace SchoolDutyManager.Services
             }
         }
 
-        public static void Add(Class classObj)
+        public void Add(Class classObj)
         {
             try
             {
@@ -71,7 +71,7 @@ namespace SchoolDutyManager.Services
             }
         }
 
-        public static void Update(Class classObj)
+        public void Update(Class classObj)
         {
             try
             {
@@ -88,7 +88,7 @@ namespace SchoolDutyManager.Services
             }
         }
 
-        public static void Delete(int id)
+        public void Delete(int id)
         {
             try
             {
@@ -105,7 +105,7 @@ namespace SchoolDutyManager.Services
             }
         }
 
-        private static void SaveToFile()
+        private void SaveToFile()
         {
             try
             {

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Exa16g7n+4Xq1nhBUPU4UP6jcedr2xuM631dPu3Kryk=",
+  "Hash": "ta8k3c87ZDlcIKqObtu8MRhov1atga+l11afZJDjdhw=",
   "Source": "SchoolDutyManager",
   "BasePath": "_content/SchoolDutyManager",
   "Mode": "Default",
@@ -16,6 +16,44 @@
     }
   ],
   "Assets": [
+    {
+      "Identity": "D:\\SchoolDutyManagerAPI\\SchoolDutyManager\\wwwroot\\classes.html",
+      "SourceId": "SchoolDutyManager",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\SchoolDutyManagerAPI\\SchoolDutyManager\\wwwroot\\",
+      "BasePath": "_content/SchoolDutyManager",
+      "RelativePath": "classes.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\classes.html"
+    },
+    {
+      "Identity": "D:\\SchoolDutyManagerAPI\\SchoolDutyManager\\wwwroot\\classes.js",
+      "SourceId": "SchoolDutyManager",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\SchoolDutyManagerAPI\\SchoolDutyManager\\wwwroot\\",
+      "BasePath": "_content/SchoolDutyManager",
+      "RelativePath": "classes.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\classes.js"
+    },
     {
       "Identity": "D:\\SchoolDutyManagerAPI\\SchoolDutyManager\\wwwroot\\dashboard.html",
       "SourceId": "SchoolDutyManager",

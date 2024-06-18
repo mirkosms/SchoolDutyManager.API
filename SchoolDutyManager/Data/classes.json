@@ -19,11 +19,9 @@
   },
   {
     "Id": 3,
-    "Name": "M",
-    "Duration": 3,
-    "AssignedPeople": [
-      "string"
-    ]
+    "Name": "Music",
+    "Duration": 30,
+    "AssignedPeople": []
   },
   {
     "Id": 4,
@@ -32,5 +30,11 @@
     "AssignedPeople": [
       "Jane Doe"
     ]
+  },
+  {
+    "Id": 5,
+    "Name": "Swimming Pool",
+    "Duration": 60,
+    "AssignedPeople": []
   }
 ]

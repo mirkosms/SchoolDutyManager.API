@@ -1,6 +1,14 @@
 {
   "Files": [
     {
+      "Id": "D:\\SchoolDutyManagerAPI\\SchoolDutyManager\\wwwroot\\classes.html",
+      "PackagePath": "staticwebassets\\classes.html"
+    },
+    {
+      "Id": "D:\\SchoolDutyManagerAPI\\SchoolDutyManager\\wwwroot\\classes.js",
+      "PackagePath": "staticwebassets\\classes.js"
+    },
+    {
       "Id": "D:\\SchoolDutyManagerAPI\\SchoolDutyManager\\wwwroot\\dashboard.html",
       "PackagePath": "staticwebassets\\dashboard.html"
     },

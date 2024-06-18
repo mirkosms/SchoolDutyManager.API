@@ -60,10 +60,23 @@ namespace SchoolDutyManager
                 }});
             });
 
+            // Zarejestruj serwis ClassService jako singleton
+            services.AddSingleton<IClassService, ClassService>();
             services.AddSingleton<IUserService, UserService>();
             services.AddSingleton<IDutyService, DutyService>();
             services.AddSingleton<IDutySwapService, DutySwapService>();
-            // Nie rejestruj ClassService jako Singleton
+
+            // Dodaj CORS
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll",
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin()
+                               .AllowAnyMethod()
+                               .AllowAnyHeader();
+                    });
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -74,8 +87,10 @@ namespace SchoolDutyManager
             }
 
             app.UseHttpsRedirection();
-
             app.UseRouting();
+
+            // Dodaj CORS
+            app.UseCors("AllowAll");
 
             app.UseAuthentication();
             app.UseAuthorization();

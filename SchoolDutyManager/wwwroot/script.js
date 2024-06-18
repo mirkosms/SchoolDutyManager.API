@@ -15,7 +15,8 @@ document.getElementById('login-form').addEventListener('submit', async function 
 
         if (response.ok) {
             const data = await response.json();
-            sessionStorage.setItem('token', data.Token); // Zapisz token w sessionStorage
+            sessionStorage.setItem('token', data.token); // Upewnij siê, ¿e token jest przechowywany pod kluczem 'token'
+            console.log('Token stored:', data.token); // Logowanie tokena
             window.location.href = 'dashboard.html'; // Przekierowanie na stronê dashboardu
         } else {
             const error = await response.json();

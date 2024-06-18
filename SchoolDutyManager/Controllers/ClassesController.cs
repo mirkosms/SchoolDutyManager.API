@@ -9,21 +9,27 @@ namespace SchoolDutyManager.Controllers
 {
     [Authorize]
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class ClassesController : ControllerBase
     {
         private readonly ILogger<ClassesController> _logger;
+        private readonly IClassService _classService;
 
-        public ClassesController(ILogger<ClassesController> logger)
+        public ClassesController(ILogger<ClassesController> logger, IClassService classService)
         {
             _logger = logger;
+            _classService = classService;
         }
 
         [HttpGet]
         public IActionResult GetAll()
         {
             _logger.LogInformation("Attempting to get all classes");
-            var classes = ClassService.GetAll();
+
+            var userEmail = User.Identity.Name;
+            _logger.LogInformation("User email: {0}", userEmail); // Logowanie adresu email użytkownika
+
+            var classes = _classService.GetAll();
             if (classes == null || !classes.Any())
             {
                 _logger.LogWarning("No classes found");
@@ -33,11 +39,12 @@ namespace SchoolDutyManager.Controllers
             return Ok(classes);
         }
 
+
         [HttpGet("{id}")]
         public ActionResult<Class> Get(int id)
         {
             _logger.LogInformation("Attempting to get class with id: {0}", id);
-            var classObj = ClassService.Get(id);
+            var classObj = _classService.Get(id);
             if (classObj == null)
             {
                 _logger.LogWarning("Class with id {0} not found", id);
@@ -51,7 +58,7 @@ namespace SchoolDutyManager.Controllers
         public IActionResult Create(Class classObj)
         {
             _logger.LogInformation("Attempting to create a new class");
-            ClassService.Add(classObj);
+            _classService.Add(classObj);
             _logger.LogInformation("Class created successfully with id {0}", classObj.Id);
             return CreatedAtAction(nameof(Get), new { id = classObj.Id }, classObj);
         }
@@ -66,14 +73,14 @@ namespace SchoolDutyManager.Controllers
                 return BadRequest();
             }
 
-            var existingClass = ClassService.Get(id);
+            var existingClass = _classService.Get(id);
             if (existingClass == null)
             {
                 _logger.LogWarning("Class with id {0} not found", id);
                 return NotFound();
             }
 
-            ClassService.Update(classObj);
+            _classService.Update(classObj);
             _logger.LogInformation("Class with id {0} updated successfully", id);
             return NoContent();
         }
@@ -82,14 +89,14 @@ namespace SchoolDutyManager.Controllers
         public IActionResult Delete(int id)
         {
             _logger.LogInformation("Attempting to delete class with id {0}", id);
-            var classObj = ClassService.Get(id);
+            var classObj = _classService.Get(id);
             if (classObj == null)
             {
                 _logger.LogWarning("Class with id {0} not found", id);
                 return NotFound();
             }
 
-            ClassService.Delete(id);
+            _classService.Delete(id);
             _logger.LogInformation("Class with id {0} deleted successfully", id);
             return NoContent();
         }
