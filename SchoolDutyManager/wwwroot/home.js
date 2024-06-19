@@ -11,20 +11,21 @@
     console.log('User role:', userRole);
 
     const resultDiv = document.getElementById('result');
+    const userIdInput = document.getElementById('userId');
 
-    // Function to display data
-    function displayData(data, title) {
-        resultDiv.innerHTML = `<h2>${title}</h2>`;
-        data.forEach(item => {
-            const itemDiv = document.createElement('div');
-            itemDiv.textContent = JSON.stringify(item, null, 2);
-            resultDiv.appendChild(itemDiv);
+    // Function to display users
+    function displayUsers(users) {
+        resultDiv.innerHTML = '';
+        users.forEach(user => {
+            const userDiv = document.createElement('div');
+            userDiv.textContent = `ID: ${user.id}, Name: ${user.name}, Email: ${user.email}, Roles: ${user.roles.join(', ')}`;
+            resultDiv.appendChild(userDiv);
         });
     }
 
-    // Fetch all classes
-    document.getElementById('viewClasses').addEventListener('click', function () {
-        fetch('https://localhost:5001/api/classes', {
+    // Fetch all students
+    document.getElementById('getAllStudents').addEventListener('click', function () {
+        fetch('https://localhost:5001/Users/role/Student', {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -32,14 +33,14 @@
         })
             .then(response => response.json())
             .then(data => {
-                displayData(data, 'Classes');
+                displayUsers(data);
             })
-            .catch(error => console.error('Error fetching classes:', error));
+            .catch(error => console.error('Error fetching students:', error));
     });
 
-    // Fetch all duties
-    document.getElementById('viewDuties').addEventListener('click', function () {
-        fetch('https://localhost:5001/api/duties', {
+    // Fetch all teachers
+    document.getElementById('getAllTeachers').addEventListener('click', function () {
+        fetch('https://localhost:5001/Users/role/Teacher', {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -47,14 +48,19 @@
         })
             .then(response => response.json())
             .then(data => {
-                displayData(data, 'Duties');
+                displayUsers(data);
             })
-            .catch(error => console.error('Error fetching duties:', error));
+            .catch(error => console.error('Error fetching teachers:', error));
     });
 
-    // Fetch all duty swaps
-    document.getElementById('viewSwaps').addEventListener('click', function () {
-        fetch('https://localhost:5001/api/dutySwaps', {
+    // Fetch user by ID
+    document.getElementById('getUserById').addEventListener('click', function () {
+        const id = userIdInput.value;
+        if (!id) {
+            alert('Please enter a user ID');
+            return;
+        }
+        fetch(`https://localhost:5001/Users/${id}`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -62,9 +68,9 @@
         })
             .then(response => response.json())
             .then(data => {
-                displayData(data, 'Duty Swaps');
+                displayUsers([data]);
             })
-            .catch(error => console.error('Error fetching duty swaps:', error));
+            .catch(error => console.error('Error fetching user by ID:', error));
     });
 
     // Event listener for logout

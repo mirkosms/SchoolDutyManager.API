@@ -37,6 +37,10 @@
       "PackagePath": "staticwebassets\\home.html"
     },
     {
+      "Id": "D:\\SchoolDutyManagerAPI\\SchoolDutyManager\\wwwroot\\home.js",
+      "PackagePath": "staticwebassets\\home.js"
+    },
+    {
       "Id": "D:\\SchoolDutyManagerAPI\\SchoolDutyManager\\wwwroot\\index.html",
       "PackagePath": "staticwebassets\\index.html"
     },

@@ -47,17 +47,17 @@ namespace SchoolDutyManager
                     Type = SecuritySchemeType.ApiKey
                 });
                 c.AddSecurityRequirement(new OpenApiSecurityRequirement {
-        {
-            new OpenApiSecurityScheme
-            {
-                Reference = new OpenApiReference
-                {
-                    Type = ReferenceType.SecurityScheme,
-                    Id = "Bearer"
-                }
-            },
-            Array.Empty<string>()
-        }});
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        Array.Empty<string>()
+                    }});
             });
 
             services.AddSingleton<IUserService, UserService>();
@@ -90,6 +90,8 @@ namespace SchoolDutyManager
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.UseCors("AllowAll");
+
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
@@ -104,6 +106,5 @@ namespace SchoolDutyManager
                 endpoints.MapFallbackToFile("/index.html");
             });
         }
-
     }
 }

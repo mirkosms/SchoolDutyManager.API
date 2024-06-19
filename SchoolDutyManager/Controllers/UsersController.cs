@@ -10,13 +10,20 @@ namespace SchoolDutyManager.Controllers
     [Route("[controller]")]
     public class UsersController : ControllerBase
     {
+        private readonly IUserService userService;
+
+        public UsersController(IUserService userService)
+        {
+            this.userService = userService;
+        }
+
         [HttpGet]
         [Route("current")]
         [Authorize]
         public ActionResult<User> GetCurrentUser()
         {
             var email = User.Identity.Name;
-            var user = AuthService.GetUserByEmail(email);
+            var user = userService.GetUserByEmail(email);
             if (user == null)
             {
                 return NotFound();
@@ -25,24 +32,45 @@ namespace SchoolDutyManager.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Student, Teacher, Admin")]
         public ActionResult<List<User>> GetAllUsers()
         {
-            var users = AuthService.GetAllUsers();
+            var users = userService.GetAllUsers();
             return Ok(users);
+        }
+
+        [HttpGet]
+        [Route("role/{role}")]
+        [Authorize(Roles = "Student, Teacher, Admin")]
+        public ActionResult<List<User>> GetUsersByRole(string role)
+        {
+            var users = userService.GetUsersByRole(role);
+            return Ok(users);
+        }
+
+        [HttpGet("{id}")]
+        [Authorize(Roles = "Student, Teacher, Admin")]
+        public ActionResult<User> GetUserById(int id)
+        {
+            var user = userService.GetUserById(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return Ok(user);
         }
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "Admin")]
         public IActionResult DeleteUser(int id)
         {
-            var user = AuthService.GetUserById(id);
+            var user = userService.GetUserById(id);
             if (user == null)
             {
                 return NotFound();
             }
 
-            AuthService.DeleteUser(id);
+            userService.DeleteUser(id);
             return NoContent();
         }
     }

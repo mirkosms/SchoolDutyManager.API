@@ -30,9 +30,19 @@ namespace SchoolDutyManager.Services
             return users.FirstOrDefault(u => u.Email == email);
         }
 
+        public User GetUserById(int id)
+        {
+            return users.FirstOrDefault(u => u.Id == id);
+        }
+
         public List<User> GetAllUsers()
         {
             return users;
+        }
+
+        public List<User> GetUsersByRole(string role)
+        {
+            return users.Where(u => u.Roles.Contains(role)).ToList(); // Dodaj tę metodę
         }
 
         public void AddUser(User user)
@@ -47,6 +57,16 @@ namespace SchoolDutyManager.Services
             if (user != null && !user.Roles.Contains(role))
             {
                 user.Roles.Add(role);
+                SaveToFile();
+            }
+        }
+
+        public void DeleteUser(int id)
+        {
+            var user = GetUserById(id);
+            if (user != null)
+            {
+                users.Remove(user);
                 SaveToFile();
             }
         }
