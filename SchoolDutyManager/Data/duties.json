@@ -1,34 +1,85 @@
 [
   {
     "Id": 1,
-    "Type": "Duty",
-    "Hours": "11-12",
+    "Type": "Library Duty",
+    "Hours": "9-10",
     "AssignedPeople": [
-      2,
-      2
+      1,
+      3
     ]
   },
   {
     "Id": 2,
-    "Type": "Duty",
-    "Hours": "11-12",
+    "Type": "Cafeteria Duty",
+    "Hours": "10-11",
     "AssignedPeople": [
-      1
-    ]
-  },
-  {
-    "Id": 3,
-    "Type": "Duty",
-    "Hours": "11-12",
-    "AssignedPeople": [
-      2,
       2
     ]
   },
   {
-    "Id": 4,
-    "Type": "Duty",
+    "Id": 3,
+    "Type": "Playground Duty",
     "Hours": "11-12",
+    "AssignedPeople": [
+      4,
+      5
+    ]
+  },
+  {
+    "Id": 4,
+    "Type": "Classroom Cleanup",
+    "Hours": "12-13",
+    "AssignedPeople": [
+      6
+    ]
+  },
+  {
+    "Id": 5,
+    "Type": "Gym Duty",
+    "Hours": "13-14",
+    "AssignedPeople": [
+      1,
+      2
+    ]
+  },
+  {
+    "Id": 6,
+    "Type": "Hallway Patrol",
+    "Hours": "14-15",
+    "AssignedPeople": [
+      3
+    ]
+  },
+  {
+    "Id": 7,
+    "Type": "Library Duty",
+    "Hours": "15-16",
+    "AssignedPeople": [
+      4,
+      6
+    ]
+  },
+  {
+    "Id": 8,
+    "Type": "Cafeteria Duty",
+    "Hours": "16-17",
+    "AssignedPeople": [
+      5
+    ]
+  },
+  {
+    "Id": 9,
+    "Type": "Playground Duty",
+    "Hours": "17-18",
+    "AssignedPeople": [
+      3,
+      2
+    ]
+  },
+  {
+    "Id": 10,
+    "Type": "Classroom Cleanup",
+    "Hours": "18-19",
     "AssignedPeople": [
       1
     ]

@@ -9,41 +9,73 @@
   },
   {
     "Id": 2,
-    "OriginalDutyId": 1,
-    "RequestedDutyId": 2,
+    "OriginalDutyId": 3,
+    "RequestedDutyId": 4,
     "Status": "Rejected",
+    "InitiatingStudentId": 4,
+    "RespondingStudentId": 6
+  },
+  {
+    "Id": 3,
+    "OriginalDutyId": 5,
+    "RequestedDutyId": 6,
+    "Status": "Pending",
     "InitiatingStudentId": 1,
-    "RespondingStudentId": 2
+    "RespondingStudentId": 3
   },
   {
     "Id": 4,
-    "OriginalDutyId": 0,
-    "RequestedDutyId": 0,
+    "OriginalDutyId": 7,
+    "RequestedDutyId": 8,
     "Status": "Pending",
-    "InitiatingStudentId": 0,
-    "RespondingStudentId": 0
+    "InitiatingStudentId": 4,
+    "RespondingStudentId": 5
   },
   {
     "Id": 5,
-    "OriginalDutyId": 1,
-    "RequestedDutyId": 2,
+    "OriginalDutyId": 9,
+    "RequestedDutyId": 10,
     "Status": "ApprovedByTeacher",
     "InitiatingStudentId": 2,
     "RespondingStudentId": 1
   },
   {
     "Id": 6,
-    "OriginalDutyId": 5,
+    "OriginalDutyId": 2,
     "RequestedDutyId": 3,
     "Status": "ApprovedByTeacher",
-    "InitiatingStudentId": 1,
-    "RespondingStudentId": 2
+    "InitiatingStudentId": 2,
+    "RespondingStudentId": 4
   },
   {
     "Id": 7,
-    "OriginalDutyId": 3,
-    "RequestedDutyId": 4,
+    "OriginalDutyId": 8,
+    "RequestedDutyId": 7,
+    "Status": "Pending",
+    "InitiatingStudentId": 5,
+    "RespondingStudentId": 4
+  },
+  {
+    "Id": 8,
+    "OriginalDutyId": 6,
+    "RequestedDutyId": 5,
+    "Status": "Rejected",
+    "InitiatingStudentId": 3,
+    "RespondingStudentId": 1
+  },
+  {
+    "Id": 9,
+    "OriginalDutyId": 4,
+    "RequestedDutyId": 1,
     "Status": "ApprovedByTeacher",
+    "InitiatingStudentId": 6,
+    "RespondingStudentId": 1
+  },
+  {
+    "Id": 10,
+    "OriginalDutyId": 10,
+    "RequestedDutyId": 9,
+    "Status": "Pending",
     "InitiatingStudentId": 1,
     "RespondingStudentId": 2
   }
