@@ -51,9 +51,10 @@ namespace SchoolDutyManager.Services
 
             var user = new User
             {
+                Id = users.Count > 0 ? users.Max(u => u.Id) + 1 : 1,
                 Email = registrationDto.Email,
                 Password = registrationDto.Password,
-                Roles = new List<string>()
+                Roles = new List<string> { registrationDto.Role }
             };
             users.Add(user);
             SaveToFile();

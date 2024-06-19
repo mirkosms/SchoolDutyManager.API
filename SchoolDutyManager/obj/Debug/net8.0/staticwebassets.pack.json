@@ -45,6 +45,18 @@
       "PackagePath": "staticwebassets\\index.html"
     },
     {
+      "Id": "D:\\SchoolDutyManagerAPI\\SchoolDutyManager\\wwwroot\\login-styles.css",
+      "PackagePath": "staticwebassets\\login-styles.css"
+    },
+    {
+      "Id": "D:\\SchoolDutyManagerAPI\\SchoolDutyManager\\wwwroot\\register.html",
+      "PackagePath": "staticwebassets\\register.html"
+    },
+    {
+      "Id": "D:\\SchoolDutyManagerAPI\\SchoolDutyManager\\wwwroot\\register.js",
+      "PackagePath": "staticwebassets\\register.js"
+    },
+    {
       "Id": "D:\\SchoolDutyManagerAPI\\SchoolDutyManager\\wwwroot\\script.js",
       "PackagePath": "staticwebassets\\script.js"
     },

@@ -16,7 +16,7 @@ namespace SchoolDutyManager.Controllers
             var token = AuthService.Login(loginDto);
             if (token == null)
             {
-                return Unauthorized();
+                return Unauthorized(new { Message = "Invalid credentials" });
             }
             return Ok(new { Token = token });
         }
@@ -28,9 +28,9 @@ namespace SchoolDutyManager.Controllers
             var result = AuthService.RegisterUser(registrationDto);
             if (!result.Success)
             {
-                return BadRequest(result.Message);
+                return BadRequest(new { Message = result.Message });
             }
-            return Ok(result.Message);
+            return Ok(new { Message = result.Message });
         }
 
         [HttpPost("assign-role")]
@@ -39,9 +39,9 @@ namespace SchoolDutyManager.Controllers
             var result = AuthService.AssignRole(roleAssignmentDto);
             if (!result.Success)
             {
-                return BadRequest(result.Message);
+                return BadRequest(new { Message = result.Message });
             }
-            return Ok(result.Message);
+            return Ok(new { Message = result.Message });
         }
 
         [Authorize]
@@ -52,7 +52,7 @@ namespace SchoolDutyManager.Controllers
             var user = AuthService.GetUserByEmail(email);
             if (user == null)
             {
-                return NotFound("User not found");
+                return NotFound(new { Message = "User not found" });
             }
 
             var userInfo = new

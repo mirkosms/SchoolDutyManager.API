@@ -32,9 +32,29 @@
     ]
   },
   {
-    "Id": 0,
+    "Id": 5,
     "Email": "admin1@example.com",
     "Password": "Password123",
     "Roles": []
+  },
+  {
+    "Id": 6,
+    "Email": "student3@example.com",
+    "Password": "Password123",
+    "Roles": []
+  },
+  {
+    "Id": 7,
+    "Email": "student4@example.com",
+    "Password": "Password123",
+    "Roles": []
+  },
+  {
+    "Id": 8,
+    "Email": "student5@example.com",
+    "Password": "Password123",
+    "Roles": [
+      "Student"
+    ]
   }
 ]
