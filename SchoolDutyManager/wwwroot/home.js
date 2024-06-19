@@ -2,6 +2,7 @@
     const token = sessionStorage.getItem('token');
     if (!token) {
         window.location.href = 'index.html';
+        return;
     }
 
     // Decode token to get user role
@@ -83,4 +84,22 @@
     document.getElementById('dashboard').addEventListener('click', function () {
         window.location.href = 'dashboard.html';
     });
+
+    // Event listeners for classes, duties, and duty swaps
+    document.getElementById('classes').addEventListener('click', function () {
+        window.location.href = 'classes.html';
+    });
+
+    document.getElementById('duties').addEventListener('click', function () {
+        window.location.href = 'duties.html';
+    });
+
+    document.getElementById('dutySwaps').addEventListener('click', function () {
+        window.location.href = 'duty-swaps.html';
+    });
+
+    // Show teacher options if the user is a teacher
+    if (userRole === 'Teacher') {
+        document.getElementById('teacher-options').style.display = 'block';
+    }
 });

@@ -48,5 +48,21 @@
     "Email": "student4@example.com",
     "Password": "Password123",
     "Roles": []
+  },
+  {
+    "Id": 8,
+    "Email": "student5@example.com",
+    "Password": "Password123",
+    "Roles": [
+      "Student"
+    ]
+  },
+  {
+    "Id": 9,
+    "Email": "student6@example.com",
+    "Password": "Password123",
+    "Roles": [
+      "Student"
+    ]
   }
 ]

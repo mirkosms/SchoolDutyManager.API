@@ -16,9 +16,10 @@
 
         const data = await response.json();
         if (response.ok) {
-            alert(data.Message); // Pokaż komunikat sukcesu
+            alert(data.message || 'Registration successful'); // Show success message
+            window.location.href = 'index.html';
         } else {
-            throw new Error(data.Message);
+            throw new Error(data.message || 'Registration failed');
         }
     } catch (error) {
         console.error('Registration error:', error);

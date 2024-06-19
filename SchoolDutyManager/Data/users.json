@@ -56,5 +56,13 @@
     "Roles": [
       "Student"
     ]
+  },
+  {
+    "Id": 9,
+    "Email": "student6@example.com",
+    "Password": "Password123",
+    "Roles": [
+      "Student"
+    ]
   }
 ]
