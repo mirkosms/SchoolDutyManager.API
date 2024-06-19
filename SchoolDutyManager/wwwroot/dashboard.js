@@ -4,12 +4,15 @@
         window.location.href = 'index.html';
     }
 
-    // Decode token to get user role
+    // Decode token to get user role and email
     const payload = JSON.parse(atob(token.split('.')[1]));
     const userRole = payload.role;
+    const userEmail = payload.email;
 
     console.log('User role:', userRole);
 
+    const welcomeMessageDiv = document.getElementById('welcomeMessage');
+    const userInfoDiv = document.getElementById('userInfo');
     const resultDiv = document.getElementById('result');
 
     // Function to display data
@@ -21,6 +24,25 @@
             resultDiv.appendChild(itemDiv);
         });
     }
+
+    // Fetch user info
+    fetch('https://localhost:5001/api/auth/userinfo', {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+        .then(response => response.json())
+        .then(userInfo => {
+            welcomeMessageDiv.innerHTML = `<h2>Welcome, ${userInfo.roles.join(', ')}</h2>`;
+            userInfoDiv.innerHTML = `
+            <p><strong>Email:</strong> ${userInfo.email}</p>
+            <p><strong>First Name:</strong> ${userInfo.firstName}</p>
+            <p><strong>Last Name:</strong> ${userInfo.lastName}</p>
+            <p><strong>Roles:</strong> ${userInfo.roles.join(', ')}</p>
+        `;
+        })
+        .catch(error => console.error('Error fetching user info:', error));
 
     // Fetch all classes
     document.getElementById('viewClasses').addEventListener('click', function () {

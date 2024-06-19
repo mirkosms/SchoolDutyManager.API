@@ -14,5 +14,6 @@ namespace SchoolDutyManager.Services
         void DeleteUser(int id); // Dodaj tę linię
         bool IsTeacher(string email);
         bool IsAdmin(string email);
+        void UpdateUser(User user); // Dodaj tę linię
     }
 }

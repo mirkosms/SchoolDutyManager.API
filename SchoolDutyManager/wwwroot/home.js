@@ -14,12 +14,17 @@
     const resultDiv = document.getElementById('result');
     const userIdInput = document.getElementById('userId');
 
+    // Show Add User section only for admin
+    if (userRole === 'Admin') {
+        document.getElementById('add-user').style.display = 'block';
+    }
+
     // Function to display users
     function displayUsers(users) {
         resultDiv.innerHTML = '';
         users.forEach(user => {
             const userDiv = document.createElement('div');
-            userDiv.textContent = `ID: ${user.id}, Name: ${user.name}, Email: ${user.email}, Roles: ${user.roles.join(', ')}`;
+            userDiv.textContent = `ID: ${user.id}, Name: ${user.firstName} ${user.lastName}, Email: ${user.email}, Roles: ${user.roles.join(', ')}`;
             resultDiv.appendChild(userDiv);
         });
     }
@@ -74,39 +79,9 @@
             .catch(error => console.error('Error fetching user by ID:', error));
     });
 
-    // Event listener for logout
-    document.getElementById('logout').addEventListener('click', function () {
-        sessionStorage.removeItem('token');
-        window.location.href = 'index.html';
-    });
-
-    // Event listener for dashboard
-    document.getElementById('dashboard').addEventListener('click', function () {
-        window.location.href = 'dashboard.html';
-    });
-
-    // Event listeners for classes, duties, and duty swaps
-    document.getElementById('classes').addEventListener('click', function () {
-        window.location.href = 'classes.html';
-    });
-
-    document.getElementById('duties').addEventListener('click', function () {
-        window.location.href = 'duties.html';
-    });
-
-    document.getElementById('dutySwaps').addEventListener('click', function () {
-        window.location.href = 'duty-swaps.html';
-    });
-
-    // Show teacher options if the user is a teacher
-    if (userRole === 'Teacher') {
-        document.getElementById('teacher-options').style.display = 'block';
-    }
-
-    // Add user (admin only)
+    // Add user (Admin Only)
     document.getElementById('add-user-form').addEventListener('submit', function (event) {
         event.preventDefault();
-
         const email = document.getElementById('add-email').value;
         const password = document.getElementById('add-password').value;
         const role = document.getElementById('add-role').value;
@@ -121,13 +96,62 @@
         })
             .then(response => response.json())
             .then(data => {
-                if (response.ok) {
+                if (data.success) {
                     alert('User added successfully');
-                    document.getElementById('add-user-form').reset();
                 } else {
-                    alert('Error adding user: ' + data.Message);
+                    alert('Error adding user: ' + data.message);
                 }
             })
             .catch(error => console.error('Error adding user:', error));
+    });
+
+    // Update profile
+    document.getElementById('update-profile-form').addEventListener('submit', function (event) {
+        event.preventDefault();
+        const firstName = document.getElementById('update-firstName').value;
+        const lastName = document.getElementById('update-lastName').value;
+        const password = document.getElementById('update-password').value;
+
+        fetch('https://localhost:5001/Users/current', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ firstName, lastName, password })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Profile updated successfully');
+                } else {
+                    alert('Error updating profile: ' + data.message);
+                }
+            })
+            .catch(error => console.error('Error updating profile:', error));
+    });
+
+    // Event listener for logout
+    document.getElementById('logout').addEventListener('click', function () {
+        sessionStorage.removeItem('token');
+        window.location.href = 'index.html';
+    });
+
+    // Event listener for dashboard
+    document.getElementById('dashboard').addEventListener('click', function () {
+        window.location.href = 'dashboard.html';
+    });
+
+    // Event listeners for navigation
+    document.getElementById('classes').addEventListener('click', function () {
+        window.location.href = 'classes.html';
+    });
+
+    document.getElementById('duties').addEventListener('click', function () {
+        window.location.href = 'duties.html';
+    });
+
+    document.getElementById('dutySwaps').addEventListener('click', function () {
+        window.location.href = 'duty-swaps.html';
     });
 });

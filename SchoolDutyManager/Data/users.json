@@ -5,7 +5,9 @@
     "Password": "Password123",
     "Roles": [
       "Student"
-    ]
+    ],
+    "FirstName": null,
+    "LastName": null
   },
   {
     "Id": 2,
@@ -13,7 +15,9 @@
     "Password": "Password123",
     "Roles": [
       "Student"
-    ]
+    ],
+    "FirstName": null,
+    "LastName": null
   },
   {
     "Id": 3,
@@ -21,7 +25,9 @@
     "Password": "Password123",
     "Roles": [
       "Teacher"
-    ]
+    ],
+    "FirstName": null,
+    "LastName": null
   },
   {
     "Id": 4,
@@ -29,25 +35,33 @@
     "Password": "Password123",
     "Roles": [
       "Admin"
-    ]
+    ],
+    "FirstName": "Mirek",
+    "LastName": "Miro"
   },
   {
     "Id": 5,
     "Email": "admin1@example.com",
     "Password": "Password123",
-    "Roles": []
+    "Roles": [],
+    "FirstName": null,
+    "LastName": null
   },
   {
     "Id": 6,
     "Email": "student3@example.com",
     "Password": "Password123",
-    "Roles": []
+    "Roles": [],
+    "FirstName": null,
+    "LastName": null
   },
   {
     "Id": 7,
     "Email": "student4@example.com",
     "Password": "Password123",
-    "Roles": []
+    "Roles": [],
+    "FirstName": null,
+    "LastName": null
   },
   {
     "Id": 8,
@@ -55,7 +69,9 @@
     "Password": "Password123",
     "Roles": [
       "Student"
-    ]
+    ],
+    "FirstName": null,
+    "LastName": null
   },
   {
     "Id": 9,
@@ -63,6 +79,18 @@
     "Password": "Password123",
     "Roles": [
       "Student"
-    ]
+    ],
+    "FirstName": null,
+    "LastName": null
+  },
+  {
+    "Id": 10,
+    "Email": "student13@example.com",
+    "Password": "Password123",
+    "Roles": [
+      "Student"
+    ],
+    "FirstName": null,
+    "LastName": null
   }
 ]

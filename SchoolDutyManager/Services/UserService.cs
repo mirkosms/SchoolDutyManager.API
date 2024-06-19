@@ -30,23 +30,14 @@ namespace SchoolDutyManager.Services
             return users.FirstOrDefault(u => u.Email == email);
         }
 
-        public User GetUserById(int id)
-        {
-            return users.FirstOrDefault(u => u.Id == id);
-        }
-
         public List<User> GetAllUsers()
         {
             return users;
         }
 
-        public List<User> GetUsersByRole(string role)
-        {
-            return users.Where(u => u.Roles.Contains(role)).ToList(); // Dodaj tę metodę
-        }
-
         public void AddUser(User user)
         {
+            user.Id = users.Count > 0 ? users.Max(u => u.Id) + 1 : 1; // Ustawienie ID użytkownika
             users.Add(user);
             SaveToFile();
         }
@@ -61,16 +52,6 @@ namespace SchoolDutyManager.Services
             }
         }
 
-        public void DeleteUser(int id)
-        {
-            var user = GetUserById(id);
-            if (user != null)
-            {
-                users.Remove(user);
-                SaveToFile();
-            }
-        }
-
         public bool IsTeacher(string email)
         {
             var user = users.FirstOrDefault(u => u.Email == email);
@@ -81,6 +62,38 @@ namespace SchoolDutyManager.Services
         {
             var user = users.FirstOrDefault(u => u.Email == email);
             return user?.Roles.Contains("Admin") ?? false;
+        }
+
+        public User GetUserById(int id)
+        {
+            return users.FirstOrDefault(u => u.Id == id);
+        }
+
+        public void DeleteUser(int id)
+        {
+            var user = GetUserById(id);
+            if (user != null)
+            {
+                users.Remove(user);
+                SaveToFile();
+            }
+        }
+
+        public List<User> GetUsersByRole(string role)
+        {
+            return users.Where(u => u.Roles.Contains(role)).ToList();
+        }
+
+        public void UpdateUser(User updatedUser)
+        {
+            var user = GetUserById(updatedUser.Id);
+            if (user != null)
+            {
+                user.FirstName = updatedUser.FirstName;
+                user.LastName = updatedUser.LastName;
+                user.Password = updatedUser.Password; // Aktualizacja hasła
+                SaveToFile();
+            }
         }
 
         private void SaveToFile()
