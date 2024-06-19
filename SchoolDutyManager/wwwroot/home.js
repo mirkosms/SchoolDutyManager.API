@@ -79,8 +79,8 @@
         window.location.href = 'index.html';
     });
 
-    // Event listener for home
-    document.getElementById('home').addEventListener('click', function () {
-        window.location.href = 'home.html';
+    // Event listener for dashboard
+    document.getElementById('dashboard').addEventListener('click', function () {
+        window.location.href = 'dashboard.html';
     });
 });
