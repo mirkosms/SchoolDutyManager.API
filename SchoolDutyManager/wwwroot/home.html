@@ -45,7 +45,7 @@
             margin-bottom: 20px;
         }
 
-            .input-container input {
+            .input-container input, .input-container select {
                 width: 100%;
                 padding: 10px;
                 font-size: 16px;
@@ -81,6 +81,19 @@
         </div>
         <div id="filter" class="input-container">
             <input type="text" id="userId" placeholder="User ID">
+        </div>
+        <div class="input-container">
+            <h2>Add User (Admin Only)</h2>
+            <form id="add-user-form">
+                <input type="email" id="add-email" placeholder="Email" required>
+                <input type="password" id="add-password" placeholder="Password" required>
+                <select id="add-role" required>
+                    <option value="">Select Role</option>
+                    <option value="Student">Student</option>
+                    <option value="Teacher">Teacher</option>
+                </select>
+                <button type="submit">Add User</button>
+            </form>
         </div>
         <div id="result"></div>
     </div>

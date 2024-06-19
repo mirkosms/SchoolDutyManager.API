@@ -102,4 +102,32 @@
     if (userRole === 'Teacher') {
         document.getElementById('teacher-options').style.display = 'block';
     }
+
+    // Add user (admin only)
+    document.getElementById('add-user-form').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const email = document.getElementById('add-email').value;
+        const password = document.getElementById('add-password').value;
+        const role = document.getElementById('add-role').value;
+
+        fetch('https://localhost:5001/api/auth/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ email, password, role })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (response.ok) {
+                    alert('User added successfully');
+                    document.getElementById('add-user-form').reset();
+                } else {
+                    alert('Error adding user: ' + data.Message);
+                }
+            })
+            .catch(error => console.error('Error adding user:', error));
+    });
 });
